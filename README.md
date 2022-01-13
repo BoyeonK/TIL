@@ -20,6 +20,7 @@ git add README.asset
 ### `git init`: `.git`폴더 생성 => git을 사용한다!
 - 1번만!
 - 하위 폴더에는 진행 X
+- `.gitignore` : 커밋찍기전에 미리 작성!!
 
 ### `git status` : git으로 관리되고 있는 상태를 확인하는 명령어
 
@@ -37,7 +38,11 @@ git add README.asset
     `deleted` : 기존 폴더 구조에 있던 친구 (지워짐)
 
 ### `git commit` : 커밋을 작성하는 명령어 (staging에 있던 파일를 기록으로 남기는 명령어)
-- `-m` : 인라인으로 커밋 메세지를 작성
+- `-m` : 인라인으로 커밋 메세지를 작성 (1줄 딸랑)
+- -m 안쓰면 default editor 작동 `vim`
+	- `i`:  insert mode 작성모드
+	- `esc` 누르고 => `:wq!` 저장하고 나가기
+	
 
 ### `git log` : 지금까지 작성한 commit에 기록들을 확인하는 명령어
 - 내용이 많아질 경우에는 특별한 뷰 모드가 활성화 => 빠져나오려면 q
@@ -54,3 +59,11 @@ git add README.asset
 - `origin` : 원격저장소 별명 (remote에서 등록한)
 - `master` : branch
 	- ex) git push (원격저장소별명) (브랜치이름)
+
+## 4. Git ignore
+`.gitignore` 파일을 생성 & 작성 (보편적 `.git`폴더와 같은 위치)
+- git으로 관리하지 않을 파일 / 폴더 or 특정파일 확장자를 작성
+	- .gitignore파일은 관리되야함 (어떤 파일을 관리 하지 않을지에 대한 정보)
+	- OS 설정 파일 / 폴더
+	- editor 설정파일 / 폴더
+	- 가상환경 (venv)

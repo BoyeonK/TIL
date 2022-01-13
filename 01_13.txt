@@ -1,0 +1,35 @@
+git init 		: git 폴더 생성, git을 사용한다는 뜻
+git status 	: git 관리 상태를 표시
+git add		: 변경사항 발생 파일을 staging area에 올림
+		modified = 변경사항 발생한 친구
+		untracked = 기존에 없던 친구
+		git add . = 모든 파일을 staging area에 올린다. 뒤의 `.`은 경로를 나타냄 
+
+git commit	: 커밋을 작성한다 = staging area에 있던 파일을 기록으로 남긴다
+		-m = 인라인으로 커밋을 작성함 (1줄 딸랑)
+		` i ` = insert mode 작성모드 => `esc` 눌러서 빠져나오고 => `:wq!` 저장하고 나가기
+
+git log		: 지금까지 작성한 commit에 기록들을 확인
+
+
+git remote	: push전에 설정, 
+		-v : 현재 원격 저장소 등록 주소들 확인
+		add 원격 저장소 추가 (주소를 전부 치기 힘드니까 별명으로 등록)
+			ex) git remote add origin https://뭐시기
+			하면 https://뭐시기 를 앞으로 origin으로 사용.
+
+git push		: 원격 저장소에 기록을 올리는 명령어
+		(원격저장소별명) (브랜치이름) = 원격저장소에 업로드
+
+여담 	공식문서 읽는법 (?), 깃헙에서 master라는 단어의 부적절성 때문에 main으로 대체되고있다.
+	### https://d2.naver.com/news/3435170 ###
+	### gitignore.io ###
+
+git ignore 	: 공개하면 안되는, git에 업로드하면 안되는 친구들
+		앞으로 python 배우면서 아마 venv(가상환경) 폴더를 ignore하게될거임
+		vscode를 쓸 수도 있고 vim을 쓸 수도 있다.
+
+branch를 사용하는 이유 : 	추가기능 개발 -> 정상적으로 작동하는지 문제는 없는지 확인 -> 반영
+			여러가지를 병렬적으로 개발 및 시험하기 위해
+			git-flow방식 branch를 관리하는 전략
+
