@@ -15,3 +15,14 @@ git config --global --list
 git add README.md
 git add README.asset
 `Repositary` : 커밋 내용이 저장되는 공간
+
+## 3. Git 명령어
+### `git init`: `.git`폴더 생성 => git을 사용한다!
+- 1번만!
+- 하위 폴더에는 진행 X
+
+### `git status` : git으로 관리되고 있는 상태를 확인하는 명령어
+
+=> 파일 생성, 수정, 삭제 => 변경 사항 발생!!!
+
+### 
