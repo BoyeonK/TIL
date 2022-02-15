@@ -9,10 +9,13 @@ for T in range(1, attempt+1):
         mxm += (12-i)
 
     ans = 0
+
+    # 구할 수 있는 수인 경우.
     if mnm <= total <= mxm:
         subset = [0] * num
         digit = (13-num)
         total -= mnm
+
         while subset[num-1] < digit:
             isit = False
             if sum(subset) == total:
