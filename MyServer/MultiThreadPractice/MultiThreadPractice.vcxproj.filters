@@ -7,6 +7,9 @@
     <Filter Include="thread">
       <UniqueIdentifier>{b033469e-139a-484e-99ab-207997bc9b60}</UniqueIdentifier>
     </Filter>
+    <Filter Include="practiceCodes">
+      <UniqueIdentifier>{13f4fff2-51c9-4128-99a6-797466f91859}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -17,6 +20,9 @@
     </ClCompile>
     <ClCompile Include="TLSvariables.cpp">
       <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="FuturePractice.cpp">
+      <Filter>practiceCodes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +37,9 @@
     </ClInclude>
     <ClInclude Include="Macro.h">
       <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="FuturePractice.h">
+      <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
