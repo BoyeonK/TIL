@@ -1,4 +1,4 @@
 #pragma once
 #include <cstdint>
 
-extern thread_local uint32_t ThreadID;
+extern thread_local uint32_t MyThreadID;

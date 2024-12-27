@@ -1,3 +1,3 @@
 #include "TLSvariables.h"
 
-thread_local uint32_t ThreadID = 0;
+thread_local uint32_t MyThreadID = 0;

@@ -20,13 +20,7 @@ public:
 	void ReadUnlock();
 
 private:
-	union _lockFlag {
-		atomic<uint32_t> fullBits;
-		struct {
-			uint16_t ownerThreadID;
-			uint16_t readLockCount;
-		};
-	};
+	atomic<uint32_t> _lockFlag = EMPTY_FLAG;
 	uint32_t _writeCount = 0;
 };
 
