@@ -127,19 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="allocPractice.cpp" />
     <ClCompile Include="FuturePractice.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="RWLockPractice.cpp" />
     <ClCompile Include="TLSvariables.cpp" />
+    <ClCompile Include="V_allocator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="allocPractice.h" />
     <ClInclude Include="FuturePractice.h" />
     <ClInclude Include="RWLock.h" />
     <ClInclude Include="RWLockPractice.h" />
     <ClInclude Include="TLSvariables.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="V_allocator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

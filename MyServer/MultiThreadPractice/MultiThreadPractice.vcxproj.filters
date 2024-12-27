@@ -10,6 +10,9 @@
     <Filter Include="practiceCodes">
       <UniqueIdentifier>{13f4fff2-51c9-4128-99a6-797466f91859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="memory">
+      <UniqueIdentifier>{9e6991a9-e50d-45bf-8bbc-4d4132c08686}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -25,6 +28,12 @@
       <Filter>practiceCodes</Filter>
     </ClCompile>
     <ClCompile Include="RWLockPractice.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="V_allocator.cpp">
+      <Filter>memory</Filter>
+    </ClCompile>
+    <ClCompile Include="allocPractice.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +54,12 @@
       <Filter>practiceCodes</Filter>
     </ClInclude>
     <ClInclude Include="RWLockPractice.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="V_allocator.h">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="allocPractice.h">
       <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>
