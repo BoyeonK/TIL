@@ -1,4 +1,5 @@
 #include "allocPractice.h"
+#include "V_allocator.h"
 #include <Windows.h>
 #include <iostream>
 
@@ -14,12 +15,19 @@ void allocPractice() {
 	int* allocatedByNew = new int;
 	*allocatedByNew = 1;
 
-	int* allocatedByVA = (int*)::VirtualAlloc(NULL, sizeof(int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+	/*
+	int* allocatedByVA = static_cast<int*>(::VirtualAlloc(NULL, sizeof(int), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
 	*allocatedByVA = 2;
+	*/
+
+	int* allocatedByAllocator = static_cast<int*>(V_allocator::Alloc(sizeof(int)));
+	*allocatedByAllocator = 3;
 
 	cout << *allocatedByNew << endl;
-	cout << *allocatedByVA << endl;
+	//cout << *allocatedByVA << endl;
+	cout << *allocatedByAllocator << endl;
 
 	delete allocatedByNew;
-	::VirtualFree(allocatedByVA, 0, MEM_RELEASE);
+	//::VirtualFree(allocatedByVA, 0, MEM_RELEASE);
+	V_allocator::Release(allocatedByAllocator);
 }
