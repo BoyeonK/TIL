@@ -4,10 +4,27 @@
     <Filter Include="main">
       <UniqueIdentifier>{04717dbc-29b4-4aa3-9355-d595be2254be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{b033469e-139a-484e-99ab-207997bc9b60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="RWLock.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+    <ClCompile Include="TLSvariables.cpp">
+      <Filter>thread</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RWLock.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="TLSvariables.h">
+      <Filter>thread</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

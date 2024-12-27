@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <future>
+#include "TLSvariables.h"
 
 using namespace std;
 

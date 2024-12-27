@@ -128,6 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RWLock.cpp" />
+    <ClCompile Include="TLSvariables.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RWLock.h" />
+    <ClInclude Include="TLSvariables.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
