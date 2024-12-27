@@ -130,11 +130,13 @@
     <ClCompile Include="FuturePractice.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RWLock.cpp" />
+    <ClCompile Include="RWLockPractice.cpp" />
     <ClCompile Include="TLSvariables.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FuturePractice.h" />
     <ClInclude Include="RWLock.h" />
+    <ClInclude Include="RWLockPractice.h" />
     <ClInclude Include="TLSvariables.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Macro.h" />

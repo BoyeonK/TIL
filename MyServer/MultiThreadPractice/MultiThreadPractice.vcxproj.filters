@@ -24,6 +24,9 @@
     <ClCompile Include="FuturePractice.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
+    <ClCompile Include="RWLockPractice.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RWLock.h">
@@ -39,6 +42,9 @@
       <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="FuturePractice.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="RWLockPractice.h">
       <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>
