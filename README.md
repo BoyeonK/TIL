@@ -4,3 +4,4 @@
 - thread
 - Future 객체
 - Custom Mutex클래스
+- ::VirtualAlloc 함수를 활용한 할당자
