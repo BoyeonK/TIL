@@ -130,6 +130,7 @@
     <ClCompile Include="allocPractice.cpp" />
     <ClCompile Include="FuturePractice.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="objectPool.cpp" />
     <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="RWLockPractice.cpp" />
     <ClCompile Include="TLSvariables.cpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="allocPractice.h" />
     <ClInclude Include="FuturePractice.h" />
+    <ClInclude Include="objectPool.h" />
     <ClInclude Include="RWLock.h" />
     <ClInclude Include="RWLockPractice.h" />
     <ClInclude Include="TLSvariables.h" />

@@ -36,6 +36,9 @@
     <ClCompile Include="allocPractice.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
+    <ClCompile Include="objectPool.cpp">
+      <Filter>memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RWLock.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="allocPractice.h">
       <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="objectPool.h">
+      <Filter>memory</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
