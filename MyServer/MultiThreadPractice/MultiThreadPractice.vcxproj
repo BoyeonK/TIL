@@ -131,6 +131,7 @@
     <ClCompile Include="FuturePractice.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objectPool.cpp" />
+    <ClCompile Include="objectPoolPractice.cpp" />
     <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="RWLockPractice.cpp" />
     <ClCompile Include="TLSvariables.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="allocPractice.h" />
     <ClInclude Include="FuturePractice.h" />
     <ClInclude Include="objectPool.h" />
+    <ClInclude Include="objectPoolPractice.h" />
     <ClInclude Include="RWLock.h" />
     <ClInclude Include="RWLockPractice.h" />
     <ClInclude Include="TLSvariables.h" />

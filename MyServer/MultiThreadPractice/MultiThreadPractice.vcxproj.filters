@@ -39,6 +39,9 @@
     <ClCompile Include="objectPool.cpp">
       <Filter>memory</Filter>
     </ClCompile>
+    <ClCompile Include="objectPoolPractice.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RWLock.h">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="objectPool.h">
       <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="objectPoolPractice.h">
+      <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
