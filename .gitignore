@@ -8,7 +8,6 @@ MyServer/MultiThreadPractice/x64/
 MyServer/temporary/
 MyServer/Libs/Libraries/Protobuf/
 MyServer/Common/google/
-
-MyServer/Binary/Debug/
-MyServer/Binary/Release/
+MyServer/Binary/
+MyServer/Binary/
 
