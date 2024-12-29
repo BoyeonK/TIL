@@ -14,6 +14,7 @@ public:
 };
 #endif
 
+template<typename _Ty>
 class poolHeader {
 public:
 	poolHeader() {
@@ -21,7 +22,11 @@ public:
 	}
 
 	~poolHeader() {
-		//TODO :: header와 연결된 모든 LIST 멤버의 소멸자를 호출한다.
+		PSLIST_ENTRY pSE;
+		while (pSE = ::InterlockedPopEntrySList(&_header)) {
+			_Ty* ptr = reinterpret_cast<_Ty*>(++pSE);
+			ptr->~_Ty();
+		}
 	}
 
 	PSLIST_ENTRY popEntry(uint32_t _typeSize) {
@@ -54,7 +59,7 @@ public:
 	}
 
 	static void dealloc(_Ty* ptr) {
-		ptr->~_Ty();
+		//ptr->~_Ty(); 소멸자를 호출할 필요가 없다.
 		PSLIST_ENTRY pSE = reinterpret_cast<PSLIST_ENTRY>(ptr) - 1;
 		_poolHeader.pushEntry(pSE);
 #ifdef _DEBUG
@@ -63,19 +68,21 @@ public:
 #endif
 	}
 
-private:
-	static poolHeader _poolHeader;
-	static uint32_t _typeSize;
+public:
 #ifdef _DEBUG
 	static counter _counter;
 #endif
+
+private:
+	static poolHeader<_Ty> _poolHeader;
+	static uint32_t _typeSize;
 };
 
 template<typename _Ty>
 uint32_t objectPool<_Ty>::_typeSize = sizeof(_Ty);
 
 template<typename _Ty>
-poolHeader objectPool<_Ty>::_poolHeader{};
+poolHeader<_Ty> objectPool<_Ty>::_poolHeader{};
 
 #ifdef _DEBUG
 template<typename _Ty>

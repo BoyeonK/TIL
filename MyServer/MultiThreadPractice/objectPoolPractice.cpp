@@ -13,6 +13,16 @@ typedef struct _ITEM {
 	uint32_t Signature;
 } ITEM, *PITEM;
 
+class CustomClass {
+public:
+	CustomClass() {
+
+	}
+	~CustomClass() {
+		cout << "»èÁ¦µÊ" << endl;
+	}
+};
+
 void objectPoolPractice() {
 	PSLIST_ENTRY pFirstEntry, pListEntry;
 	PSLIST_HEADER pListHead;
@@ -55,12 +65,26 @@ void objectPoolPractice() {
 	}
 	_aligned_free(pListHead);
 
-	vector<int*> pns;
+	cout << endl;
 
+	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+	vector<int*> pns;
 	for (int i = 0; i < 10; i++) {
 		int* pn = objectPool<int>::alloc();
 		pns.push_back(pn);
 	}
+	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+	for (int i = 0; i < 3; i++) {
+		objectPool<int>::dealloc(pns[i]);
+	}
+	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+	for (int i = 3; i < 10; i++) {
+		objectPool<int>::dealloc(pns[i]);
+	}
+	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+
+	CustomClass* pC = objectPool<CustomClass>::alloc();
+	objectPool<CustomClass>::dealloc(pC);
 
 	return;
 }
