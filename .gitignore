@@ -5,3 +5,10 @@ MyServer/MyServer/x64/
 MyServer/MyClient/x64/
 MyServer/MyLibraries/x64/
 MyServer/MultiThreadPractice/x64/
+MyServer/temporary/
+MyServer/Libs/Libraries/Protobuf/
+MyServer/Common/google/
+
+MyServer/Binary/Debug/
+MyServer/Binary/Release/
+

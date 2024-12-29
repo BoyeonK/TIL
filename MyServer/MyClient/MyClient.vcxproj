@@ -72,13 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
-    <LibraryPath>$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)MyLibraries\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libs\Libraries\Protobuf\Debug\;$(SolutionDir)Libs\Libraries\Protobuf\Release\;$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)MyLibraries\;$(SolutionDir)Common\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
-    <LibraryPath>$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)MyLibraries\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libs\Libraries\Protobuf\Debug\;$(SolutionDir)Libs\Libraries\Protobuf\Release\;$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)MyLibraries\;$(SolutionDir)Common\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,6 +116,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +133,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
