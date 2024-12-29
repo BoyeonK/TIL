@@ -36,9 +36,6 @@
     <ClCompile Include="allocPractice.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
-    <ClCompile Include="objectPool.cpp">
-      <Filter>memory</Filter>
-    </ClCompile>
     <ClCompile Include="objectPoolPractice.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>

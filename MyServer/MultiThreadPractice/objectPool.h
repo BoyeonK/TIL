@@ -33,7 +33,7 @@ private:
 	alignas(16) static SLIST_HEADER _poolHeader;
 	static uint32_t _typeSize;
 #ifdef _DEBUG
-	static counter;
+	static counter _counter;
 #endif
 };
 

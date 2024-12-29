@@ -130,7 +130,6 @@
     <ClCompile Include="allocPractice.cpp" />
     <ClCompile Include="FuturePractice.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="objectPool.cpp" />
     <ClCompile Include="objectPoolPractice.cpp" />
     <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="RWLockPractice.cpp" />
