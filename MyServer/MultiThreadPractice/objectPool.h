@@ -14,30 +14,43 @@ public:
 };
 #endif
 
-template<typename _Ty>
-class objectPool {
+class poolHeader {
 public:
-	static PSLIST_ENTRY popEntry() {
-		PSLIST_ENTRY pEntry = ::InterlockedPopEntrySList(&_poolHeader);
-		if (pEntry == nullptr) {
+	poolHeader() {
+		::InitializeSListHead(&_header);
+	}
+
+	~poolHeader() {
+
+	}
+
+	PSLIST_ENTRY popEntry(uint32_t _typeSize) {
+		PSLIST_ENTRY pEntry = ::InterlockedPopEntrySList(&_header);
+		if (pEntry == nullptr) 
 			pEntry = static_cast<PSLIST_ENTRY>(_aligned_malloc(sizeof(SLIST_ENTRY) + _typeSize, 16));
-#ifdef _DEBUG
-			_counter._uses.fetch_add(1);
-#endif
-		}
 		return pEntry;
 	}
 
-	static void pushEntry(PSLIST_ENTRY ptr) {
-		::InterlockedPushEntrySList(ptr);
+private:
+	alignas(16) SLIST_HEADER _header;
+};
+
+template<typename _Ty>
+class objectPool {
+public:
+	template<typename... Args>
+	static _Ty* alloc(Args&&... args) {
+		PSLIST_ENTRY pSE = _poolHeader.popEntry(_typeSize);
+		_Ty* ptr = reinterpret_cast<_Ty*>(++pSE);
+		new(ptr)_Ty(forward<Args>(args)...);
 #ifdef _DEBUG
-		_counter._uses.fetch_sub(1);
-		_counter._reserves.fetch_add(1);
+			_counter._uses.fetch_add(1);
 #endif
+		return ptr;
 	}
 
 private:
-	alignas(16) static SLIST_HEADER _poolHeader;
+	static poolHeader _poolHeader;
 	static uint32_t _typeSize;
 #ifdef _DEBUG
 	static counter _counter;
@@ -46,9 +59,3 @@ private:
 
 template<typename _Ty>
 uint32_t objectPool<_Ty>::_typeSize = sizeof(_Ty);
-
-template<typename _Ty, typename... Args>
-_Ty* P_new(Args&&... args) {
-	PSLIST_ENTRY ptr = objectPool<_Ty>::popEntry();
-	return reinterpret_cast<_Ty*>(++ptr);
-}
