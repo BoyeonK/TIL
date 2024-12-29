@@ -20,8 +20,8 @@ public:
 		::InitializeSListHead(&_header);
 	}
 
-	~poolHeader() {
-
+	~poolHeader() { 
+		//TODO :: header와 연결된 모든 LIST 멤버의 소멸자를 호출한다.
 	}
 
 	PSLIST_ENTRY popEntry(uint32_t _typeSize) {
@@ -29,6 +29,10 @@ public:
 		if (pEntry == nullptr) 
 			pEntry = static_cast<PSLIST_ENTRY>(_aligned_malloc(sizeof(SLIST_ENTRY) + _typeSize, 16));
 		return pEntry;
+	}
+
+	void pushEntry(PSLIST_ENTRY pSE) {
+		::InterlockedPushEntrySList(&_header, pSE);
 	}
 
 private:
@@ -44,9 +48,19 @@ public:
 		_Ty* ptr = reinterpret_cast<_Ty*>(++pSE);
 		new(ptr)_Ty(forward<Args>(args)...);
 #ifdef _DEBUG
-			_counter._uses.fetch_add(1);
+		_counter._uses.fetch_add(1);
 #endif
 		return ptr;
+	}
+
+	static void dealloc(_Ty* ptr) {
+		ptr->~_Ty();
+		PSLIST_ENTRY pSE = reinterpret_cast<PSLIST_ENTRY>(ptr) - 1;
+		_poolHeader.pushEntry(pSE);
+#ifdef _DEBUG
+		_counter._uses.fetch_sub(1);
+		_counter._reserves.fetch_add(1);
+#endif
 	}
 
 private:
