@@ -2,7 +2,8 @@
 2024 12 5th
 - placement new
 - Forwarding Reference
-- LockFree 방식의 연결리스트
+- alignas(), _aligned_malloc(), _aligned_free() 메모리 정렬
+- LockFree 방식의 연결리스트 (considering ABA problem)
 - object pool
 
 2024 12 4th

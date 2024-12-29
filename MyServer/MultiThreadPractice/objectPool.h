@@ -20,13 +20,13 @@ public:
 		::InitializeSListHead(&_header);
 	}
 
-	~poolHeader() { 
+	~poolHeader() {
 		//TODO :: header와 연결된 모든 LIST 멤버의 소멸자를 호출한다.
 	}
 
 	PSLIST_ENTRY popEntry(uint32_t _typeSize) {
 		PSLIST_ENTRY pEntry = ::InterlockedPopEntrySList(&_header);
-		if (pEntry == nullptr) 
+		if (pEntry == nullptr)
 			pEntry = static_cast<PSLIST_ENTRY>(_aligned_malloc(sizeof(SLIST_ENTRY) + _typeSize, 16));
 		return pEntry;
 	}
@@ -73,3 +73,14 @@ private:
 
 template<typename _Ty>
 uint32_t objectPool<_Ty>::_typeSize = sizeof(_Ty);
+
+template<typename _Ty>
+poolHeader objectPool<_Ty>::_poolHeader{};
+
+#ifdef _DEBUG
+template<typename _Ty>
+counter objectPool<_Ty>::_counter{};
+#endif
+
+
+

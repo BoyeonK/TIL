@@ -4,6 +4,7 @@
 #include <malloc.h>
 #include <cstdint>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -53,6 +54,13 @@ void objectPoolPractice() {
 		return;
 	}
 	_aligned_free(pListHead);
+
+	vector<int*> pns;
+
+	for (int i = 0; i < 10; i++) {
+		int* pn = objectPool<int>::alloc();
+		pns.push_back(pn);
+	}
 
 	return;
 }
