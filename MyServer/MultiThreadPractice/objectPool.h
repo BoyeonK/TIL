@@ -6,13 +6,9 @@
 
 using namespace std;
 
-struct poolEntry : public SLIST_ENTRY {
-	uint32_t size;
-};
-
 #ifdef _DEBUG
 class counter {
-private:
+public:
 	atomic<uint32_t> _uses = 0;
 	atomic<uint32_t> _reserves = 0;
 };
@@ -21,12 +17,23 @@ private:
 template<typename _Ty>
 class objectPool {
 public:
-	static poolEntry* popEntry() {
-		poolEntry* pEntry = static_cast<poolEntry*>(::InterlockedPopEntrySList(&_poolHeader));
+	static PSLIST_ENTRY popEntry() {
+		PSLIST_ENTRY pEntry = ::InterlockedPopEntrySList(&_poolHeader);
 		if (pEntry == nullptr) {
-			pEntry = static_cast<poolEntry*>(_aligned_malloc(sizeof(poolEntry) + _typeSize, 16));
+			pEntry = static_cast<PSLIST_ENTRY>(_aligned_malloc(sizeof(SLIST_ENTRY) + _typeSize, 16));
+#ifdef _DEBUG
+			_counter._uses.fetch_add(1);
+#endif
 		}
 		return pEntry;
+	}
+
+	static void pushEntry(PSLIST_ENTRY ptr) {
+		::InterlockedPushEntrySList(ptr);
+#ifdef _DEBUG
+		_counter._uses.fetch_sub(1);
+		_counter._reserves.fetch_add(1);
+#endif
 	}
 
 private:
@@ -41,6 +48,7 @@ template<typename _Ty>
 uint32_t objectPool<_Ty>::_typeSize = sizeof(_Ty);
 
 template<typename _Ty, typename... Args>
-_Ty* newPool(Args&&... args) {
-
+_Ty* P_new(Args&&... args) {
+	PSLIST_ENTRY ptr = objectPool<_Ty>::popEntry();
+	return reinterpret_cast<_Ty*>(++ptr);
 }
