@@ -1,6 +1,6 @@
 ### 복습용 연습장 레포입니당
 
-2024 12 5th
+2025 1 1th
 
 - Forwarding Reference
 
@@ -13,9 +13,14 @@
   - 메모리 정렬 (`alignas()`, `_aligned_malloc_()`, `_aligned_free_()`)
 
 - google protobuf
+  
   - vcpkg를 사용해서 라이브러리 설치하기
   - cmake로 빌드하기
   - 임의의 패킷을 만들고 내장함수들을 다뤄보기
+
+- winsock2 TCP통신
+  
+  - socket 연결 및 blocking방식으로 `send` `recv`
 
 2024 12 4th
 

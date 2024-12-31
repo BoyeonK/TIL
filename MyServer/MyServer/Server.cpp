@@ -12,7 +12,8 @@ int main() {
 
 	serverSocketPractice1();
 
-	//¹Ù·Î ²¨ÁöÁö¸Á ¤Ð¤Ð
-	int a;
-	cin >> a;
+	while (true) {
+		this_thread::sleep_for(10s);
+
+	}
 }

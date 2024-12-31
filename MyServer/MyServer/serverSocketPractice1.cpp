@@ -52,8 +52,8 @@ void serverSocketPractice1() {
 	int addrLen = sizeof(clientAddr);
 
 	//Accept실행. 현재 방식은 Blocking방식이다.
-	SOCKET acceptSocket = ::accept(listenSocketHandle, (SOCKADDR*)&clientAddr, &addrLen);
-	if (acceptSocket == INVALID_SOCKET) {
+	SOCKET connectedSocket = ::accept(listenSocketHandle, (SOCKADDR*)&clientAddr, &addrLen);
+	if (connectedSocket == INVALID_SOCKET) {
 		HandleError();
 		return;
 	}
@@ -63,7 +63,21 @@ void serverSocketPractice1() {
 	::inet_ntop(AF_INET, &clientAddr.sin_addr, ipAddress, sizeof(ipAddress));
 	cout << "Client Connected! IP = " << ipAddress << endl;
 
-	::closesocket(acceptSocket);
+	char recvbuf[100] = "";
+
+	while (true) {
+		int recvlen = ::recv(connectedSocket, recvbuf, 100, 0);
+		if (recvlen <= 0)
+			HandleError();
+		cout << recvbuf << endl;
+		cout << "recv length is " << recvlen << endl;
+
+		if (SOCKET_ERROR == ::send(connectedSocket, recvbuf, recvlen, 0)) {
+			HandleError();
+		}
+	}
+
+	::closesocket(connectedSocket);
 
 	::WSACleanup();
 }
