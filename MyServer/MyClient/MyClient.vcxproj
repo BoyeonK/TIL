@@ -42,13 +42,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -72,13 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
-    <LibraryPath>$(SolutionDir)Libs\Libraries\Protobuf\Debug\;$(SolutionDir)Libs\Libraries\Protobuf\Release\;$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)MyLibraries\;$(SolutionDir)Common\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libs\Libraries\Protobuf\;$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)MyLibraries\;$(solutionDir)Libs\Include\</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
-    <LibraryPath>$(SolutionDir)Libs\Libraries\Protobuf\Debug\;$(SolutionDir)Libs\Libraries\Protobuf\Release\;$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)MyLibraries\;$(SolutionDir)Common\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Libs\Libraries\Protobuf\;$(SolutionDir)Libs\Libraries\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)MyLibraries\;$(solutionDir)Libs\Include\</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,12 +144,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="example.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="example.pb.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

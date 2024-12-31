@@ -1,1 +1,6 @@
-1
+cmake -DZLIB_INCLUDE_DIR=C:/Users/tetep/OneDrive/Desktop/protobuf/vcpkg/installed/x64-windows/include \
+      -DZLIB_LIBRARY=C:/Users/tetep/OneDrive/Desktop/protobuf/vcpkg/installed/x64-windows/lib/zlib.lib \
+	..
+      -DGTEST_INCLUDE_DIR=C:/Users/tetep/OneDrive/Desktop/protobuf/vcpkg/installed/x64-windows/include \
+      -DGTEST_LIBRARY=C:/Users/tetep/OneDrive/Desktop/protobuf/vcpkg/installed/x64-windows/lib/gtest.lib \
+      ..
