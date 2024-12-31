@@ -2,6 +2,7 @@
 #include <iostream>
 #include "MyLibraries.h"
 #include "serverSocketPractice1.h"
+#include <thread>
 
 using namespace std;
 
@@ -10,4 +11,8 @@ int main() {
 	HelloWorld();
 
 	serverSocketPractice1();
+
+	//¹Ù·Î ²¨ÁöÁö¸Á ¤Ð¤Ð
+	int a;
+	cin >> a;
 }

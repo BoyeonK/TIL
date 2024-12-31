@@ -25,7 +25,7 @@ void clientServerPractice1() {
 
 	SOCKADDR_IN serverAddr;
 	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	::inet_pton(AF_INET, "127.0.0.1", &serverAddr.sin_addr);
 	serverAddr.sin_port = htons(7777);
 
 	if (SOCKET_ERROR == ::connect(clientSocketHandle, (SOCKADDR*)&serverAddr, sizeof(serverAddr))) {
