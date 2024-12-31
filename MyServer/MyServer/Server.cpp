@@ -2,6 +2,7 @@
 #include <iostream>
 #include "MyLibraries.h"
 #include "serverSocketPractice1.h"
+#include "serverSocketPractice2.h"
 #include <thread>
 
 using namespace std;
@@ -10,7 +11,7 @@ int main() {
 	cout << "I'm Server" << endl;
 	HelloWorld();
 
-	serverSocketPractice1();
+	serverSocketPractice2();
 
 	int a;
 	cin >> a;

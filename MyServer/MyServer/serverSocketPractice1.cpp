@@ -51,7 +51,7 @@ void serverSocketPractice1() {
 	::memset(&clientAddr, 0, sizeof(clientAddr));
 	int addrLen = sizeof(clientAddr);
 
-	//Accept실행. 현재 방식은 Blocking방식이다.
+	//Accept실행, 연결 완료된 소켓 생성, 현재 방식은 Blocking방식이다.
 	SOCKET connectedSocket = ::accept(listenSocketHandle, (SOCKADDR*)&clientAddr, &addrLen);
 	if (connectedSocket == INVALID_SOCKET) {
 		HandleError();
