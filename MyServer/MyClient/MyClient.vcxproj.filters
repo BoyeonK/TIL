@@ -24,6 +24,9 @@
     <ClCompile Include="clientSocketPractice1.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
+    <ClCompile Include="clientSocketPractice2.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -36,6 +39,9 @@
       <Filter>practiceCodes</Filter>
     </ClInclude>
     <ClInclude Include="socketPractice.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="clientSocketPractice2.h">
       <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>

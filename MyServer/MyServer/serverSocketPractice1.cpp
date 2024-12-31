@@ -65,6 +65,8 @@ void serverSocketPractice1() {
 
 	char recvbuf[100] = "";
 
+	//연결된 client 소켓에 대해 recv를 수행 후,
+	//받은 buffer와 동일한 버퍼를 다시 send한다.
 	while (true) {
 		int recvlen = ::recv(connectedSocket, recvbuf, 100, 0);
 		if (recvlen <= 0)
@@ -74,6 +76,7 @@ void serverSocketPractice1() {
 
 		if (SOCKET_ERROR == ::send(connectedSocket, recvbuf, recvlen, 0)) {
 			HandleError();
+			return;
 		}
 	}
 

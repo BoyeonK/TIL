@@ -12,7 +12,7 @@ inline void HandleError() {
 	cout << errorCode << endl;
 }
 
-void clientServerPractice1() {
+void clientSocketPractice1() {
 	//시작
 	WSAData wsaData;
 	if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -38,7 +38,8 @@ void clientServerPractice1() {
 	}
 	cout << "Connected to Server" << endl;
 
-	//buffer에 string장전한다.
+	//buffer에 문자열을 담아서 send한다.
+	//이후, recv를 시도한다. 받은 문자열을 출력한다.
 	int buflen = 100;
 	char sendbuf[100] = "This is the message.";
 	char recvbuf[100] = "";

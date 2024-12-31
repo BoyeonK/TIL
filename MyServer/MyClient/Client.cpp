@@ -12,5 +12,5 @@ int main() {
 
 	this_thread::sleep_for(1s);
 
-	clientServerPractice1();
+	clientSocketPractice1();
 }
