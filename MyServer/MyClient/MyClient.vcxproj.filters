@@ -12,10 +12,12 @@
     <ClCompile Include="pch.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="example.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="example.pb.h" />
   </ItemGroup>
 </Project>
