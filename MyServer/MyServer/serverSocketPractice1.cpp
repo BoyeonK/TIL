@@ -46,19 +46,24 @@ void serverSocketPractice1() {
 		return;
 	}
 
-	SOCKET acceptSocket;
-
+	//Accept하기 전, connect요청을 보낸 Client의 정보를 저장할 변수
 	SOCKADDR_IN clientAddr;
 	::memset(&clientAddr, 0, sizeof(clientAddr));
 	int addrLen = sizeof(clientAddr);
 
-	acceptSocket = ::accept(listenSocketHandle, (SOCKADDR*)&clientAddr, &addrLen);
+	//Accept실행. 현재 방식은 Blocking방식이다.
+	SOCKET acceptSocket = ::accept(listenSocketHandle, (SOCKADDR*)&clientAddr, &addrLen);
 	if (acceptSocket == INVALID_SOCKET) {
 		HandleError();
 		return;
 	}
 
+	//Accept가 완료되면 연결된 Client의 정보가 담기는 것을 확인할 수 있다.
 	char ipAddress[16];
 	::inet_ntop(AF_INET, &clientAddr.sin_addr, ipAddress, sizeof(ipAddress));
 	cout << "Client Connected! IP = " << ipAddress << endl;
+
+	::closesocket(acceptSocket);
+
+	::WSACleanup();
 }
