@@ -4,6 +4,9 @@
     <Filter Include="main">
       <UniqueIdentifier>{6b01ac68-9b3d-40b4-af87-60e9ff433407}</UniqueIdentifier>
     </Filter>
+    <Filter Include="practiceCodes">
+      <UniqueIdentifier>{93d36e6d-aae3-46a0-9412-710227d0f1d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -12,10 +15,19 @@
     <ClCompile Include="pch.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="serverSocketPractice1.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="serverSocketPractice1.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="socketPractice.h">
+      <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

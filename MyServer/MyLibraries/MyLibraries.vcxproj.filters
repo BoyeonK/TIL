@@ -12,6 +12,9 @@
     <ClInclude Include="MyLibraries.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="MyMacros.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp">

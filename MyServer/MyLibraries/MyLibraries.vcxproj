@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="MyLibraries.h" />
+    <ClInclude Include="MyMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp" />

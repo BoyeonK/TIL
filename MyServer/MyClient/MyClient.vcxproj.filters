@@ -4,6 +4,12 @@
     <Filter Include="main">
       <UniqueIdentifier>{17cd0da1-7bc8-497a-a801-e6a87bcf17e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PBfiles">
+      <UniqueIdentifier>{35c9c7c2-3cc7-4382-a172-ace90ab877ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="practiceCodes">
+      <UniqueIdentifier>{2295cda1-54c7-4ec7-82d9-e2fbaff7cfe5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -12,12 +18,25 @@
     <ClCompile Include="pch.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="example.pb.cc" />
+    <ClCompile Include="example.pb.cc">
+      <Filter>PBfiles</Filter>
+    </ClCompile>
+    <ClCompile Include="clientSocketPractice1.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="example.pb.h" />
+    <ClInclude Include="example.pb.h">
+      <Filter>PBfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="clientSocketPractice1.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="socketPractice.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
