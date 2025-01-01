@@ -7,6 +7,9 @@
     <Filter Include="Network">
       <UniqueIdentifier>{2159aca4-e25f-4014-bceb-e579030294e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{1625add5-446a-4f6e-b9d0-d265a74680fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -33,6 +36,15 @@
     <ClInclude Include="Listener.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="objectPool.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="StompAllocator.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Session.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp">
@@ -51,6 +63,15 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="Listener.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="objectPool.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="StompAllocator.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Session.cpp">
       <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>

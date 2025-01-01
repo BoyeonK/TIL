@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CompletionPortCore.h"
 
-CPTask::CPTask() {
+CPTask::CPTask(TaskType tasktype) : _TaskType(tasktype) {
 	Init();
 }
 
@@ -41,8 +41,8 @@ bool CPCore::Dispatch(uint32_t timeoutMs) {
 		OUT reinterpret_cast<LPOVERLAPPED*>(&cpTask),
 		timeoutMs)
 	) {
-		shared_ptr<CPObject> iocpObject = cpTask->owner;
-		iocpObject->Dispatch(cpTask, numOfBytes);
+		shared_ptr<CPObject> cpObject = cpTask->_OwnerRef;
+		cpObject->Dispatch(cpTask, numOfBytes);
 	} 
 	else {
 		int32_t errCode = ::WSAGetLastError();
@@ -51,7 +51,7 @@ bool CPCore::Dispatch(uint32_t timeoutMs) {
 			return false;
 		default:
 			// TODO : ·Î±× Âï±â
-			shared_ptr<CPObject> cpObject = cpTask->owner;
+			shared_ptr<CPObject> cpObject = cpTask->_OwnerRef;
 			cpObject->Dispatch(cpTask, numOfBytes);
 			break;
 		}

@@ -1,17 +1,54 @@
 #pragma once
 
+class CPTask;
+
 class CPObject : public enable_shared_from_this<CPObject> {
 public:
 	virtual HANDLE GetHandle() abstract;
-	virtual void Dispatch(class CPTask* cptask, uint32_t NumOfBytes = 0) abstract;
+	virtual void Dispatch(CPTask* cptask, int32_t NumOfBytes = 0) abstract;
+};
+
+enum class TaskType : uint8_t {
+	Connect,
+	Disconnect,
+	Accept,
+	Recv,
+	Send,
 };
 
 class CPTask : public OVERLAPPED {
 public:
-	CPTask();
+	CPTask(TaskType tasktype);
 	void Init();
 
-	shared_ptr<CPObject> owner;
+	shared_ptr<CPObject> _OwnerRef;
+	TaskType _TaskType;
+};
+
+class ConnectTask : public CPTask {
+public:
+	ConnectTask() : CPTask(TaskType::Connect) { }
+};
+
+class DisconnectTask : public CPTask {
+public:
+	DisconnectTask() : CPTask(TaskType::Disconnect) { }
+
+};
+
+class AcceptTask : public CPTask {
+public:
+	AcceptTask() : CPTask(TaskType::Accept) { }
+};
+
+class RecvTask : public CPTask {
+public:
+	RecvTask() : CPTask(TaskType::Recv) { }
+};
+
+class SendTask : public CPTask {
+public:
+	SendTask() : CPTask(TaskType::Send) { }
 };
 
 class CPCore {
