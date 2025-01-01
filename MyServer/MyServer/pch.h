@@ -10,3 +10,4 @@
 #pragma comment(lib, "Protobuf\\Release\\libprotobuf.lib")
 #endif
 
+#include "CorePch.h"

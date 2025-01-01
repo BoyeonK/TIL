@@ -4,6 +4,9 @@
     <Filter Include="main">
       <UniqueIdentifier>{5e408bec-8e40-4ee3-bed2-4f16366f17c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{2159aca4-e25f-4014-bceb-e579030294e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -15,6 +18,12 @@
     <ClInclude Include="MyMacros.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="SocketUtils.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CorePch.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp">
@@ -22,6 +31,9 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketUtils.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
