@@ -66,23 +66,30 @@ void objectPoolPractice() {
 	_aligned_free(pListHead);
 
 	cout << endl;
-
+#ifdef _DEBUG
 	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+#endif 
 	vector<int*> pns;
 	for (int i = 0; i < 10; i++) {
 		int* pn = objectPool<int>::alloc();
 		pns.push_back(pn);
 	}
+#ifdef _DEBUG
 	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+#endif
 	for (int i = 0; i < 3; i++) {
 		objectPool<int>::dealloc(pns[i]);
 	}
+#ifdef _DEBUG
 	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
+#endif
 	for (int i = 3; i < 10; i++) {
 		objectPool<int>::dealloc(pns[i]);
 	}
+#ifdef _DEBUG
 	cout << objectPool<int>::_counter._uses << " " << objectPool<int>::_counter._reserves << endl;
 
+#endif
 	CustomClass* pC = objectPool<CustomClass>::alloc();
 	objectPool<CustomClass>::dealloc(pC);
 

@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <cstdint>
 #include <string>
+#include <atomic>
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
