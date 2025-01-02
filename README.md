@@ -24,7 +24,9 @@
   - overlapped I/O
   - IOCP 모델 활용
 
+- Functor
 
+- std::function, 람다함수
 
 2024 12 4th
 
