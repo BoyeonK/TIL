@@ -148,11 +148,13 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="serverSocketPractice1.cpp" />
     <ClCompile Include="serverSocketPractice2.cpp" />
+    <ClCompile Include="serverSocketPractice3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="serverSocketPractice1.h" />
     <ClInclude Include="serverSocketPractice2.h" />
+    <ClInclude Include="serverSocketPractice3.h" />
     <ClInclude Include="socketPractice.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

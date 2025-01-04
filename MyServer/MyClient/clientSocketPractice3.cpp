@@ -1,23 +1,12 @@
 #include "pch.h"
-#include "socketPractice.h"
-#include "clientSocketPractice2.h"
-#include "MyMacros.h"
-#include <iostream>
-#include <thread>
-
-using namespace std;
+#include "clientSocketPractice3.h"
 
 inline void HandleError() {
 	int errorCode = ::WSAGetLastError();
 	cout << errorCode << endl;
 }
 
-struct recvEvent {
-	WSAOVERLAPPED recvOverlapped;
-
-};
-
-void clientSocketPractice2() {
+void clientSocketPractice() {
 	//½ÃÀÛ
 	WSAData wsaData;
 	if (::WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
