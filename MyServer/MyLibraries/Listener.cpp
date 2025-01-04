@@ -50,7 +50,6 @@ void Listener::Dispatch(CPTask* cptask, int32_t NumOfBytes) {
 	
 }
 
-void Listener::ProcessAccept(AcceptTask*)
-{
+void Listener::ProcessAccept(AcceptTask*) {
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "CompletionPortCore.h"
+#include "NetAddress.h"
 #include <vector>
 
 class Listener : public CPObject {
