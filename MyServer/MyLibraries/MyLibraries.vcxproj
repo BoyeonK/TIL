@@ -152,11 +152,13 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="MyLibraries.h" />
     <ClInclude Include="MyMacros.h" />
+    <ClInclude Include="RWLock.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="SocketUtils.h" />
     <ClInclude Include="CorePch.h" />
     <ClInclude Include="StompAllocator.h" />
+    <ClInclude Include="TLSvariables.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompletionPortCore.cpp" />
@@ -170,10 +172,12 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RWLock.cpp" />
     <ClCompile Include="Service.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="SocketUtils.cpp" />
     <ClCompile Include="StompAllocator.cpp" />
+    <ClCompile Include="TLSvariables.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

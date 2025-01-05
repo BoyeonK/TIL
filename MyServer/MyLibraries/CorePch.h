@@ -14,5 +14,7 @@
 #include <MSWSock.h>
 
 #include "MyMacros.h"
+#include "objectPool.h"
+#include "RWLock.h"
 
 using namespace std;

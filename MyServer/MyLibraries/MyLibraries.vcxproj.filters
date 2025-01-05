@@ -10,6 +10,9 @@
     <Filter Include="Memory">
       <UniqueIdentifier>{1625add5-446a-4f6e-b9d0-d265a74680fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Thread">
+      <UniqueIdentifier>{f8650f06-5fa7-4358-88fa-02ebd2e184c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -48,6 +51,12 @@
     <ClInclude Include="Service.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="RWLock.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="TLSvariables.h">
+      <Filter>Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp">
@@ -79,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="Service.cpp">
       <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="RWLock.cpp">
+      <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="TLSvariables.cpp">
+      <Filter>Thread</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

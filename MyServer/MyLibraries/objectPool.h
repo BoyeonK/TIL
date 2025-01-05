@@ -1,5 +1,7 @@
 #pragma once
 
+using namespace std;
+
 #ifdef _DEBUG
 class counter {
 public:
