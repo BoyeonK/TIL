@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CompletionPortCore.h" />
+    <ClInclude Include="CoreGlobal.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="NetAddress.h" />
     <ClInclude Include="objectPool.h" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompletionPortCore.cpp" />
+    <ClCompile Include="CoreGlobal.cpp" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="MyLibraries.cpp" />
     <ClCompile Include="NetAddress.cpp" />

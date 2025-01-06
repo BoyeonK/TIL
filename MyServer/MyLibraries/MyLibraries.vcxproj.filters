@@ -57,6 +57,9 @@
     <ClInclude Include="TLSvariables.h">
       <Filter>Thread</Filter>
     </ClInclude>
+    <ClInclude Include="CoreGlobal.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp">
@@ -94,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="TLSvariables.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreGlobal.cpp">
+      <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
