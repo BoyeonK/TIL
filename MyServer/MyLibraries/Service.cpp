@@ -6,9 +6,24 @@ Service::Service(
 	shared_ptr<CPCore>CPCoreRef,
 	NetAddress address,
 	SessionFactory sessionFactory,
-	uint32_t maxSessionCount) :
+	uint32_t maxSessionCount,
+	ServiceType type
+) :
 	_CPCoreRef(CPCoreRef),
 	_address(address),
 	_sessionFactory(sessionFactory),
-	_maxSessionCount(maxSessionCount)
+	_maxSessionCount(maxSessionCount),
+	_type(type)
 { }
+
+ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
+	NetAddress address,
+	SessionFactory sessionFactory,
+	uint32_t maxSessionCount
+) :
+	Service(CPCoreRef, address, sessionFactory, maxSessionCount, ServiceType::Server)
+{ }
+
+void ServerService::StartAccept() {
+
+}

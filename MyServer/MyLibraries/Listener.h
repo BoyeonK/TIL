@@ -2,14 +2,14 @@
 #include <vector>
 #include "Service.h"
 
-class Service;
+class ServerService;
 
 class Listener : public CPObject {
 public:
 	Listener() = default;
 	~Listener();
 
-	bool StartAccept(shared_ptr<Service> service);
+	bool StartAccept(shared_ptr<ServerService>& service);
 	void CloseSocket();
 
 	virtual HANDLE GetHandle() override;
@@ -22,6 +22,6 @@ private:
 protected:
 	SOCKET _socketHandle = INVALID_SOCKET;
 	vector<AcceptTask*> _pAcceptTasks;
-	shared_ptr<Service> _service;
+	weak_ptr<ServerService> _service;
 };
 

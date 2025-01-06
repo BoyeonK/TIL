@@ -41,7 +41,7 @@ private:
 
 private:
 	USE_RWLOCK;
-	weak_ptr<Service> _serviceWRef;
+	//weak_ptr<Service> _serviceWRef;
 	NetAddress _address;
 	SOCKET _socketHandle;
 	char _recvBuffer[1000];

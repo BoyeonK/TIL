@@ -1,8 +1,7 @@
 #pragma once
 #include "pch.h"
 
-class SocketUtils
-{
+class SocketUtils {
 public:
 	static LPFN_CONNECTEX		ConnectEx;
 	static LPFN_DISCONNECTEX	DisconnectEx;
