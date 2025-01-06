@@ -39,6 +39,8 @@ public:
 class AcceptTask : public CPTask {
 public:
 	AcceptTask() : CPTask(TaskType::Accept) { }
+
+	shared_ptr<Session>_sessionRef = nullptr;
 };
 
 class RecvTask : public CPTask {

@@ -15,11 +15,12 @@ public:
 	virtual void Dispatch(CPTask* cptask, int32_t NumOfBytes = 0) override;
 
 private:
-	void RegisterAccept(AcceptTask*);
-	void ProcessAccept(AcceptTask*);
+	void RegisterAccept(AcceptTask* pAcceptTask);
+	void ProcessAccept(AcceptTask* pAcceptTask);
 
 protected:
-	SOCKET _SocketHandle = INVALID_SOCKET;
-	NetAddress _MyAddress = {};
+	SOCKET _socketHandle = INVALID_SOCKET;
+	vector<AcceptTask*> _pAcceptTasks;
+	NetAddress _myAddress = {};
 };
 
