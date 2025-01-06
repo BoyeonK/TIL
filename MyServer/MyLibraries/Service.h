@@ -12,7 +12,7 @@ enum class ServiceType : uint8_t {
 
 using SessionFactory = function<shared_ptr<Session>(void)>;
 
-class Service {
+class Service : public enable_shared_from_this<Service> {
 public:
 	Service(
 		shared_ptr<CPCore>CPCoreRef,
@@ -25,8 +25,6 @@ public:
 
 	NetAddress GetAddress() { return _address; }
 	shared_ptr<CPCore> GetCPCoreRef() { return _CPCoreRef; }
-
-	
 
 protected:
 	shared_ptr<CPCore> _CPCoreRef;
@@ -48,6 +46,6 @@ public:
 	void StartAccept();
 
 private:
-	shared_ptr<Listener> _ListenerRef;
+	shared_ptr<Listener> _listenerRef;
 };
 

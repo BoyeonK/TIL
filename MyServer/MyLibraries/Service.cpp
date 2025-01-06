@@ -22,7 +22,9 @@ ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
 	uint32_t maxSessionCount
 ) :
 	Service(CPCoreRef, address, sessionFactory, maxSessionCount, ServiceType::Server)
-{ }
+{
+	_listenerRef = make_shared<Listener>();
+}
 
 void ServerService::StartAccept() {
 
