@@ -15,11 +15,11 @@ using SessionFactory = function<shared_ptr<Session>()>;
 class Service : public enable_shared_from_this<Service> {
 public:
 	Service(
+		ServiceType type,
 		shared_ptr<CPCore>CPCoreRef,
 		NetAddress address,
 		SessionFactory sessionFactory,
-		uint32_t maxSessionCount,
-		ServiceType type
+		uint32_t maxSessionCount
 	);
 	virtual ~Service() { }
 
@@ -46,6 +46,7 @@ public:
 		uint32_t maxSessionCount
 	);
 	~ServerService() { }
+
 	void StartAccept();
 
 private:

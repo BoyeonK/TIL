@@ -3,11 +3,11 @@
 #include "Listener.h"
 
 Service::Service(
+	ServiceType type,
 	shared_ptr<CPCore>CPCoreRef,
 	NetAddress address,
 	SessionFactory sessionFactory,
-	uint32_t maxSessionCount,
-	ServiceType type
+	uint32_t maxSessionCount
 ) :
 	_CPCoreRef(CPCoreRef),
 	_address(address),
@@ -34,7 +34,7 @@ ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
 	SessionFactory sessionFactory,
 	uint32_t maxSessionCount
 ) :
-	Service(CPCoreRef, address, sessionFactory, maxSessionCount, ServiceType::Server)
+	Service(ServiceType::Server, CPCoreRef, address, sessionFactory, maxSessionCount)
 {
 	_listenerRef = make_shared<Listener>();
 }

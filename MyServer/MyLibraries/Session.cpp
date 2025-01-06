@@ -62,6 +62,7 @@ void Session::ProcessConnect() {
 	_CT._OwnerRef = nullptr;
 	_isConnected.store(true);
 	GetService()->AddSession(GetSessionRef());
+	OnConnected();
 	RegisterRecv();
 }
 

@@ -42,6 +42,12 @@ private:
 
 	void				HandleError(int32_t errorCode);
 
+protected:
+	virtual void OnConnected() { }
+	virtual void OnDisconnected() { }
+	virtual void OnSend() { }
+	virtual void OnRecv() { }
+
 private:
 	USE_RWLOCK;
 	//weak_ptr<Service> _serviceWRef;

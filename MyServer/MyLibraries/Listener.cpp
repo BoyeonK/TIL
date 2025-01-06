@@ -61,8 +61,8 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 		sizeof(SOCKADDR_IN) + 16,
 		sizeof(SOCKADDR_IN) + 16,
 		&bytesReceived,
-		pAcceptTask)
-		) {
+		pAcceptTask))
+	{
 		const int errorCode = ::WSAGetLastError();
 		if (errorCode != WSA_IO_PENDING) {
 #ifdef _DEBUG
@@ -71,7 +71,6 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 			RegisterAccept(pAcceptTask);
 		}
 	}
-	
 }
 
 void Listener::CloseSocket() {
@@ -118,6 +117,6 @@ void Listener::ProcessAccept(AcceptTask* pAcceptTask) {
 		return;
 	}
 
-	//sessionRef->
+	sessionRef->ProcessConnect();
 }
 
