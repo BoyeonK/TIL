@@ -10,13 +10,15 @@
   
   - static_pointer_cast<_Ty>()
 
-- 알고싶지 않았던 유형별 에러
+- 알고싶지 않았던 유형별 에러들...
   
   - 라이브러리에서 구현부를 제대로 구현하지 않은 경우 (LNK2001)
   
+  - 런타임 라이브러리 설정이 파일마다 통일되지 않은 경우 (LNK2038)
+  
   - share_ptr로 유효하지 않은 객체를 래핑했을 경우 (memory.h)
   
-  - 대입 연산자로 값을 변경할 수 없는 경우
+  - 대입 연산자로 값을 변경할 수 없는 값을 대입 연산자로 조작하려 한 경우
 
 2025 1 1th
 
@@ -58,4 +60,4 @@
 
 - ::VirtualAlloc 함수를 활용한 할당자
 
-- static_cast, reinterpret_cast
+- static_cast, reinterpret_cast, dynamic_cast
