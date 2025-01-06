@@ -16,5 +16,9 @@
 #include "MyMacros.h"
 #include "objectPool.h"
 #include "RWLock.h"
+#include "Session.h"
+#include "CompletionPortCore.h"
+#include "NetAddress.h"
+#include "SocketUtils.h"
 
 using namespace std;
