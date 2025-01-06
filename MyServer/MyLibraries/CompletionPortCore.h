@@ -1,6 +1,8 @@
 #pragma once
+#include "Session.h"
 
 class CPTask;
+class Session;
 
 class CPObject : public enable_shared_from_this<CPObject> {
 public:
@@ -40,7 +42,7 @@ class AcceptTask : public CPTask {
 public:
 	AcceptTask() : CPTask(TaskType::Accept) { }
 
-	shared_ptr<Session>_sessionRef = nullptr;
+	shared_ptr<Session> _sessionRef = nullptr;
 };
 
 class RecvTask : public CPTask {

@@ -1,5 +1,6 @@
 #pragma once
 #include "CompletionPortCore.h"
+#include "Service.h"
 #include "NetAddress.h"
 
 using namespace std;
@@ -19,7 +20,11 @@ public:
 
 public:
 	SOCKET GetSocket() { return _socketHandle; }
-	void SetNetAddress(NetAddress addr) { _address = addr };
+	void SetNetAddress(NetAddress addr) { _address = addr; }
+	
+private:
+	virtual HANDLE GetHandle() override;
+	virtual void Dispatch(CPTask* pCPTask, int32_t numOfBytes) override;
 
 private:
 	bool				RegisterConnect();

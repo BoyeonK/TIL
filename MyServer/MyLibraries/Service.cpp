@@ -10,6 +10,5 @@ Service::Service(
 	_CPCoreRef(CPCoreRef),
 	_address(address),
 	_sessionFactory(sessionFactory),
-	_maxSessionCount(maxSessionCount),
-	_Listener(Listener(address))
+	_maxSessionCount(maxSessionCount)
 { }

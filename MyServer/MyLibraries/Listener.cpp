@@ -1,8 +1,5 @@
 #include "pch.h"
 #include "Listener.h"
-#include "SocketUtils.h"
-
-Listener::Listener(NetAddress myaddress) : _myAddress(myaddress) { }
 
 Listener::~Listener() {
 	SocketUtils::Close(_socketHandle);
@@ -10,13 +7,18 @@ Listener::~Listener() {
 		delete p;
 }
 
-bool Listener::StartAccept(HANDLE iocpHandle) {
+bool Listener::StartAccept(shared_ptr<Service> service) {
+	//service객체와 연동
+	_service = service;
+	if (_service == nullptr)
+		return false;
+
 	//Listen 소켓 생성
 	_socketHandle = SocketUtils::CreateSocket();
 	if (_socketHandle == INVALID_SOCKET) return false;
 
 	//iocp 핸들이 유효한지 검사
-	if (iocpHandle == INVALID_HANDLE_VALUE) return false;
+	if (_service->GetCPCoreRef()->GetHandle() == INVALID_HANDLE_VALUE) return false;
 
 	//소켓의 TIME_WAIT상태일때, 같은 포트로 다른 소켓의 bind요청을 허용
 	if (SocketUtils::SetReuseAddress(_socketHandle, true) == false)	return false;
@@ -25,7 +27,7 @@ bool Listener::StartAccept(HANDLE iocpHandle) {
 	if (SocketUtils::SetLinger(_socketHandle, 0, 0) == false) return false;
 
 	//Bind시도
-	if (SocketUtils::Bind(_socketHandle, _myAddress) == false) return false;
+	if (SocketUtils::Bind(_socketHandle, _service->GetAddress()) == false) return false;
 
 	//Listen시도
 	if (SocketUtils::Listen(_socketHandle) == false) return false;
@@ -44,7 +46,7 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 	shared_ptr<Session> sessionRef = make_shared<Session>();
 
 	pAcceptTask->Init();
-	pAcceptTask->_sessionRef = sessionRef;
+	//pAcceptTask->_sessionRef = sessionRef;
 	
 	DWORD bytesReceived;
 	if (false == SocketUtils::AcceptEx(
@@ -75,7 +77,15 @@ HANDLE Listener::GetHandle() {
 	return reinterpret_cast<HANDLE>(_socketHandle);
 }
 
-void Listener::Dispatch(CPTask* cptask, int32_t NumOfBytes) {
+void Listener::Dispatch(CPTask* pCpTask, int32_t NumOfBytes) {
+	switch (pCpTask->_TaskType) {
+	case (TaskType::Accept):
+		ProcessAccept(static_cast<AcceptTask*>(pCpTask));
+		break;
+	default:
+		CRASH("Listener에 Accept이외의 타입의 Dispatch행동");
+		break;
+	}
 	
 }
 
@@ -88,7 +98,6 @@ void Listener::ProcessAccept(AcceptTask* pAcceptTask) {
 		RegisterAccept(pAcceptTask);
 		return;
 	}
-
 	SOCKADDR_IN sockAddress;
 	int32_t sizeOfSockAddr = sizeof(sockAddress);
 	if (SOCKET_ERROR == ::getpeername(sessionRef->GetSocket(), reinterpret_cast<SOCKADDR*>(&sockAddress), &sizeOfSockAddr)) {
@@ -96,7 +105,6 @@ void Listener::ProcessAccept(AcceptTask* pAcceptTask) {
 		RegisterAccept(pAcceptTask);
 		return;
 	}
-
 	sessionRef->SetNetAddress(NetAddress(sockAddress));
 	//session->
 }

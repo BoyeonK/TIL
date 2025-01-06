@@ -23,6 +23,25 @@ bool Session::Connect() {
 void Session::Disconnect() {
 }
 
+HANDLE Session::GetHandle() {
+	return reinterpret_cast<HANDLE>(_socketHandle);
+}
+
+void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
+	switch (pCPTask->_TaskType) {
+	case (TaskType::Connect):
+		break;
+	case (TaskType::Disconnect):
+		break;
+	case (TaskType::Recv):
+		break;
+	case (TaskType::Send):
+		break;
+	default:
+		break;
+	}
+}
+
 bool Session::RegisterConnect() {
 	return false;
 }

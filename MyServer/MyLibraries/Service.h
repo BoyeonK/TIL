@@ -2,12 +2,13 @@
 #include <functional>
 #include <set>
 #include "Listener.h"
-#include "NetAddress.h"
 #include "Session.h"
+#include "NetAddress.h"
 
 using SessionFactory = function<shared_ptr<Session>(void)>;
 
 class Service {
+public:
 	Service(
 		shared_ptr<CPCore>CPCoreRef,
 		NetAddress address,
@@ -15,6 +16,9 @@ class Service {
 		uint32_t maxSessionCount
 	);
 	virtual ~Service() { }
+
+	NetAddress GetAddress() { return _address; }
+	shared_ptr<CPCore> GetCPCoreRef() { return _CPCoreRef; }
 
 private:
 	shared_ptr<CPCore> _CPCoreRef;
