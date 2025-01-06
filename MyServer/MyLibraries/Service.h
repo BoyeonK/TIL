@@ -27,6 +27,7 @@ public:
 	shared_ptr<CPCore> GetCPCoreRef() { return _CPCoreRef; }
 	shared_ptr<Session> CreateSessionRef();
 	void AddSession(shared_ptr<Session>sessionRef);
+	bool CanStart() { return _sessionFactory != nullptr; }
 
 protected:
 	USE_RWLOCK;
@@ -38,9 +39,23 @@ protected:
 	ServiceType _type;
 };
 
+class ClientService : public Service {
+public:
+	ClientService(
+		shared_ptr<CPCore>CPCoreRef,
+		NetAddress address,
+		SessionFactory sessionFactory,
+		uint32_t maxSessionCount = 1
+	);
+	~ClientService() { }
+
+	bool StartConnect();
+};
+
 class ServerService : public Service {
 public:
-	ServerService(shared_ptr<CPCore>CPCoreRef,
+	ServerService(
+		shared_ptr<CPCore>CPCoreRef,
 		NetAddress address,
 		SessionFactory sessionFactory,
 		uint32_t maxSessionCount

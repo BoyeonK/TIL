@@ -12,7 +12,9 @@ shared_ptr<TestSession3> SessionMaker() {
 }
 
 void serverSocketPractice3() {
-	this_thread::sleep_for(1s);
+	SocketUtils::Init();
+	this_thread::sleep_for(3s);
+
 	shared_ptr<ServerService> SS = make_shared<ServerService>(
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),
@@ -21,4 +23,15 @@ void serverSocketPractice3() {
 	);
 
 	SS->StartAccept();
+
+	if (SS == nullptr) {
+		cout << "err" << endl;
+	}
+	if (SS->GetCPCoreRef()->GetHandle() == INVALID_HANDLE_VALUE) {
+		cout << "err" << endl;
+	}
+
+	while (true) {
+		SS->GetCPCoreRef()->Dispatch();
+	}
 }

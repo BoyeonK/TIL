@@ -57,6 +57,6 @@ bool CPCore::Dispatch(uint32_t timeoutMs) {
 		}
 	}
 
-	return false;
+	return true;
 }
 

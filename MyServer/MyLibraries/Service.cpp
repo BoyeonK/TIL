@@ -9,18 +9,20 @@ Service::Service(
 	SessionFactory sessionFactory,
 	uint32_t maxSessionCount
 ) :
+	_type(type),
 	_CPCoreRef(CPCoreRef),
 	_address(address),
 	_sessionFactory(sessionFactory),
-	_maxSessionCount(maxSessionCount),
-	_type(type)
+	_maxSessionCount(maxSessionCount)
 { }
 
 shared_ptr<Session> Service::CreateSessionRef() {
 	shared_ptr<Session> sessionRef = _sessionFactory();
 	weak_ptr<Service> serviceWRef = shared_from_this();
 	sessionRef->SetServiceWRef(serviceWRef);
-	_CPCoreRef->Register(static_pointer_cast<CPObject>(sessionRef));
+	if (false == _CPCoreRef->Register(static_pointer_cast<CPObject>(sessionRef))) {
+		return nullptr;
+	}
 	return sessionRef;
 }
 
@@ -29,7 +31,8 @@ void Service::AddSession(shared_ptr<Session> sessionRef) {
 	_sessionRefs.insert(sessionRef);
 }
 
-ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
+ServerService::ServerService(
+	shared_ptr<CPCore>CPCoreRef,
 	NetAddress address,
 	SessionFactory sessionFactory,
 	uint32_t maxSessionCount
@@ -40,7 +43,29 @@ ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
 }
 
 void ServerService::StartAccept() {
+	if (CanStart() == false)
+		return;
 	weak_ptr<ServerService> ServerServiceWRef = static_pointer_cast<ServerService>(shared_from_this());
 	_listenerRef->SetServerService(ServerServiceWRef);
 	_listenerRef->StartAccept();
 }
+
+ClientService::ClientService(
+	shared_ptr<CPCore> CPCoreRef, 
+	NetAddress address, 
+	SessionFactory sessionFactory, 
+	uint32_t maxSessionCount
+) :
+	Service(ServiceType::Client, CPCoreRef, address, sessionFactory, maxSessionCount = 1)
+{ }
+
+bool ClientService::StartConnect() {
+	if (CanStart() == false) {
+		cout << "시작할수가업성" << endl;
+		return false;
+	}
+		
+	shared_ptr<Session> sessionRef = CreateSessionRef();
+	return sessionRef->Connect();
+}
+

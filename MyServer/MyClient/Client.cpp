@@ -3,6 +3,7 @@
 #include "example.pb.h"
 #include <thread>
 #include "clientSocketPractice1.h"
+#include "clientSocketPractice4.h"
 
 using namespace std;
 
@@ -12,5 +13,5 @@ int main() {
 
 	this_thread::sleep_for(1s);
 
-	clientSocketPractice1();
+	clientSocketPractice4();
 }

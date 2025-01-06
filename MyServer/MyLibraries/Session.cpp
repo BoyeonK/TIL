@@ -17,7 +17,7 @@ void Session::Send(char* sendBuffer) {
 }
 
 bool Session::Connect() {
-	return false;
+	return RegisterConnect();
 }
 
 void Session::Disconnect() {
@@ -30,6 +30,7 @@ HANDLE Session::GetHandle() {
 void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
 	switch (pCPTask->_TaskType) {
 	case (TaskType::Connect):
+		ProcessConnect();
 		break;
 	case (TaskType::Disconnect):
 		break;
@@ -43,7 +44,37 @@ void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
 }
 
 bool Session::RegisterConnect() {
-	return false;
+	if (isConnected()) {
+		cout << "??" << endl;
+		return false;
+	}
+		
+
+	//소유한 service객체가 client용인지 확인
+
+	if (SocketUtils::SetReuseAddress(_socketHandle, true) == false)
+		return false;
+
+	if (SocketUtils::BindAnyAddress(_socketHandle, 0) == false)
+		return false;
+
+	_CT.Init();
+	_CT._OwnerRef = shared_from_this();
+
+	DWORD numOfBytes = 0;
+	SOCKADDR_IN sockAddr = GetService()->GetAddress().GetSockAddr();
+	if (false == SocketUtils::ConnectEx(_socketHandle, reinterpret_cast<SOCKADDR*>(&sockAddr), sizeof(sockAddr), nullptr, 0, &numOfBytes, &_CT)) {
+		int errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING) {
+#ifdef _DEBUG
+			cout << "ConnectEx함수 실행 에러" << endl;
+#endif
+			_CT._OwnerRef = nullptr;
+			return false;
+		}
+	}
+
+	return true;
 }
 
 bool Session::RegisterDisconnect() {
@@ -60,7 +91,7 @@ void Session::RegisterSend(char* sendBuffer) {
 */
 void Session::ProcessConnect() {
 	_CT._OwnerRef = nullptr;
-	_isConnected.store(true);
+	_connected.store(true);
 	GetService()->AddSession(GetSessionRef());
 	OnConnected();
 	RegisterRecv();

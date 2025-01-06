@@ -20,6 +20,10 @@ bool Listener::StartAccept() {
 	//iocp 핸들이 유효한지 검사
 	if (service->GetCPCoreRef()->GetHandle() == INVALID_HANDLE_VALUE) return false;
 
+	//iocp와 Listener Socket연동
+	if (service->GetCPCoreRef()->Register(shared_from_this()) == false)
+		return false;
+
 	//소켓의 TIME_WAIT상태일때, 같은 포트로 다른 소켓의 bind요청을 허용
 	if (SocketUtils::SetReuseAddress(_socketHandle, true) == false)	return false;
 
@@ -33,9 +37,10 @@ bool Listener::StartAccept() {
 	service = nullptr;
 
 	//Listen시도
-	if (SocketUtils::Listen(_socketHandle) == false) return false;
+	if (SocketUtils::Listen(_socketHandle) == false) 
+		return false;
 
-	for (int i = 0; i < 100; i++) {
+	for (int i = 0; i < 1; i++) {
 		AcceptTask* pAcceptTask = new AcceptTask;
 		pAcceptTask->_OwnerRef = shared_from_this();
 		RegisterAccept(pAcceptTask);
@@ -51,23 +56,28 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 
 	pAcceptTask->Init();
 	pAcceptTask->_sessionRef = sessionRef;
+
+	if (_socketHandle == INVALID_SOCKET) {
+		cout << "INVALID" << endl;
+	}
+
+	if (sessionRef->GetSocket() == INVALID_SOCKET) {
+		cout << "INVALID" << endl;
+	}
 	
 	DWORD bytesReceived;
 	if (false == SocketUtils::AcceptEx(
 		_socketHandle,
 		sessionRef->GetSocket(),
-		sessionRef->_recvBuffer,
+		sessionRef->GetRecvBuffer(),
 		0,
 		sizeof(SOCKADDR_IN) + 16,
 		sizeof(SOCKADDR_IN) + 16,
 		&bytesReceived,
-		pAcceptTask))
+		static_cast<LPOVERLAPPED>(pAcceptTask)))
 	{
-		const int errorCode = ::WSAGetLastError();
+		int32_t errorCode = ::WSAGetLastError();
 		if (errorCode != WSA_IO_PENDING) {
-#ifdef _DEBUG
-			cout << "Error Occured with errorCode : " << errorCode << endl;
-#endif
 			RegisterAccept(pAcceptTask);
 		}
 	}

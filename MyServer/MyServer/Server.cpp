@@ -12,7 +12,4 @@ int main() {
 	cout << "I'm Server" << endl;
 
 	serverSocketPractice3();
-
-	int a;
-	cin >> a;
 }

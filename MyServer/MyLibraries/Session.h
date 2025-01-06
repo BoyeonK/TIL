@@ -24,6 +24,8 @@ public:
 	void SetServiceWRef(weak_ptr<Service>serviceWRef) { _serviceWRef = serviceWRef; }
 	shared_ptr<Service> GetService() { return _serviceWRef.lock(); }
 	shared_ptr<Session> GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
+	bool isConnected() { return _connected; }
+	char* GetRecvBuffer() { return _recvBuffer; }
 	
 private:
 	virtual HANDLE GetHandle() override;
@@ -53,7 +55,7 @@ private:
 	//weak_ptr<Service> _serviceWRef;
 	NetAddress _address;
 	SOCKET _socketHandle;
-	atomic<bool> _isConnected = false;
+	atomic<bool> _connected = false;
 	weak_ptr<Service> _serviceWRef;
 	char _recvBuffer[1000];
 	
