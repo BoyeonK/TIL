@@ -8,8 +8,8 @@ Listener::~Listener() {
 }
 
 bool Listener::StartAccept() {
-	//service객체와 연동
-	shared_ptr<ServerService> service = _serverService.lock();
+	//연동된 Service객체가 유효한지 확인
+	shared_ptr<ServerService> service = _serverServiceWRef.lock();
 	if (service == nullptr)
 		return false;
 
@@ -29,6 +29,7 @@ bool Listener::StartAccept() {
 	//Bind시도
 	if (SocketUtils::Bind(_socketHandle, service->GetAddress()) == false) return false;
 
+	//shared_ptr 해제
 	service = nullptr;
 
 	//Listen시도
@@ -109,7 +110,7 @@ void Listener::ProcessAccept(AcceptTask* pAcceptTask) {
 	}
 
 	sessionRef->SetNetAddress(NetAddress(sockAddress));
-	shared_ptr<ServerService> service = _serverService.lock();
+	shared_ptr<ServerService> service = _serverServiceWRef.lock();
 	if (service == nullptr) {
 		sessionRef == nullptr;
 		cout << "Invalid server service" << endl;

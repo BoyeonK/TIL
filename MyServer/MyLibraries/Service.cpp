@@ -27,5 +27,7 @@ ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
 }
 
 void ServerService::StartAccept() {
-
+	weak_ptr<ServerService> ServerServiceWRef = static_pointer_cast<ServerService>(shared_from_this());
+	_listenerRef->SetServerService(ServerServiceWRef);
+	_listenerRef->StartAccept();
 }

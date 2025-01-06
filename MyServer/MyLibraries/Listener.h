@@ -15,6 +15,10 @@ public:
 	virtual HANDLE GetHandle() override;
 	virtual void Dispatch(CPTask* pCpTask, int32_t NumOfBytes = 0) override;
 
+	void SetServerService(weak_ptr<ServerService> ServerServiceWRef) {
+		_serverServiceWRef = ServerServiceWRef;
+	}
+
 private:
 	void RegisterAccept(AcceptTask* pAcceptTask);
 	void ProcessAccept(AcceptTask* pAcceptTask);
@@ -22,6 +26,6 @@ private:
 protected:
 	SOCKET _socketHandle = INVALID_SOCKET;
 	vector<AcceptTask*> _pAcceptTasks;
-	weak_ptr<ServerService> _serverService;
+	weak_ptr<ServerService> _serverServiceWRef;
 };
 

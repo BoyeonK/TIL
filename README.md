@@ -1,5 +1,23 @@
 ### 복습용 연습장 레포입니당
 
+2025 1 2th
+
+- 스마트포인터
+  
+  - shared_ptr, weak_ptr
+  
+  - enable_shared_from_this<_Ty>, shared_from_this()
+  
+  - static_pointer_cast<_Ty>()
+
+- 알고싶지 않았던 유형별 에러
+  
+  - 라이브러리에서 구현부를 제대로 구현하지 않은 경우 (LNK2001)
+  
+  - share_ptr로 유효하지 않은 객체를 래핑했을 경우 (memory.h)
+  
+  - 대입 연산자로 값을 변경할 수 없는 경우
+
 2025 1 1th
 
 - Forwarding Reference
