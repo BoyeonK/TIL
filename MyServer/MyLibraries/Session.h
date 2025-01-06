@@ -21,6 +21,9 @@ public:
 public:
 	SOCKET GetSocket() { return _socketHandle; }
 	void SetNetAddress(NetAddress addr) { _address = addr; }
+	void SetServiceWRef(weak_ptr<Service>serviceWRef) { _serviceWRef = serviceWRef; }
+	shared_ptr<Service> GetService() { return _serviceWRef.lock(); }
+	shared_ptr<Session> GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
 	
 private:
 	virtual HANDLE GetHandle() override;
@@ -44,10 +47,18 @@ private:
 	//weak_ptr<Service> _serviceWRef;
 	NetAddress _address;
 	SOCKET _socketHandle;
+	atomic<bool> _isConnected = false;
+	weak_ptr<Service> _serviceWRef;
 	char _recvBuffer[1000];
 	
 	//send버퍼 테스트 코드.
 	//send요청은 여러 쓰레드에 의해 일어날 수 있으므로, 이 방식은 나중에 교체되어야 함.
 	char _sendBuffer[1000];
+
+private:
+	ConnectTask _CT;
+	DisconnectTask _DCT;
+	RecvTask _RT;
+	SendTask _ST;
 };
 

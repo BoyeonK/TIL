@@ -51,6 +51,7 @@ bool Session::RegisterDisconnect() {
 }
 
 void Session::RegisterRecv() {
+	
 }
 /*
 void Session::RegisterSend(char* sendBuffer) {
@@ -58,6 +59,10 @@ void Session::RegisterSend(char* sendBuffer) {
 }
 */
 void Session::ProcessConnect() {
+	_CT._OwnerRef = nullptr;
+	_isConnected.store(true);
+	GetService()->AddSession(GetSessionRef());
+	RegisterRecv();
 }
 
 void Session::ProcessDisconnect() {

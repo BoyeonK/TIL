@@ -16,6 +16,19 @@ Service::Service(
 	_type(type)
 { }
 
+shared_ptr<Session> Service::CreateSessionRef() {
+	shared_ptr<Session> sessionRef = _sessionFactory();
+	weak_ptr<Service> serviceWRef = shared_from_this();
+	sessionRef->SetServiceWRef(serviceWRef);
+	_CPCoreRef->Register(static_pointer_cast<CPObject>(sessionRef));
+	return sessionRef;
+}
+
+void Service::AddSession(shared_ptr<Session> sessionRef) {
+	WRITE_RWLOCK;
+	_sessionRefs.insert(sessionRef);
+}
+
 ServerService::ServerService(shared_ptr<CPCore>CPCoreRef,
 	NetAddress address,
 	SessionFactory sessionFactory,

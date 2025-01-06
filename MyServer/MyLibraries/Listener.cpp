@@ -45,8 +45,9 @@ bool Listener::StartAccept() {
 }
 
 void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
-	//지금은 그냥 session을 만들지만, 나중에 session을 만들 함수를 제공할 예정.
-	shared_ptr<Session> sessionRef = make_shared<Session>();
+	shared_ptr<Service> service = _serverServiceWRef.lock();
+	shared_ptr<Session> sessionRef = service->CreateSessionRef();
+	service = nullptr;
 
 	pAcceptTask->Init();
 	pAcceptTask->_sessionRef = sessionRef;

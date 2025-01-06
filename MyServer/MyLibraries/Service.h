@@ -10,7 +10,7 @@ enum class ServiceType : uint8_t {
 	Client
 };
 
-using SessionFactory = function<shared_ptr<Session>(void)>;
+using SessionFactory = function<shared_ptr<Session>()>;
 
 class Service : public enable_shared_from_this<Service> {
 public:
@@ -25,8 +25,11 @@ public:
 
 	NetAddress GetAddress() { return _address; }
 	shared_ptr<CPCore> GetCPCoreRef() { return _CPCoreRef; }
+	shared_ptr<Session> CreateSessionRef();
+	void AddSession(shared_ptr<Session>sessionRef);
 
 protected:
+	USE_RWLOCK;
 	shared_ptr<CPCore> _CPCoreRef;
 	NetAddress _address;
 	uint32_t _maxSessionCount;
