@@ -26,8 +26,8 @@ bool SocketUtils::BindWindowsFunction(SOCKET socket, GUID guid, LPVOID* fn) {
 		SIO_GET_EXTENSION_FUNCTION_POINTER, 
 		&guid, 
 		sizeof(guid), 
-		&fn, 
-		sizeof(fn), 
+		fn, 
+		sizeof(*fn), 
 		OUT & bytes, 
 		NULL, 
 		NULL
