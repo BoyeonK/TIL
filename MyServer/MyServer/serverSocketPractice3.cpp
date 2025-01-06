@@ -13,7 +13,6 @@ shared_ptr<TestSession3> SessionMaker() {
 
 void serverSocketPractice3() {
 	SocketUtils::Init();
-	this_thread::sleep_for(3s);
 
 	shared_ptr<ServerService> SS = make_shared<ServerService>(
 		make_shared<CPCore>(),

@@ -44,12 +44,9 @@ void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
 }
 
 bool Session::RegisterConnect() {
-	if (isConnected()) {
-		cout << "??" << endl;
+	if (isConnected()) 
 		return false;
-	}
 		
-
 	//소유한 service객체가 client용인지 확인
 
 	if (SocketUtils::SetReuseAddress(_socketHandle, true) == false)

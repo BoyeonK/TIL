@@ -8,7 +8,6 @@
 using namespace std;
 
 int main() {
-	SocketUtils::Init();
 	cout << "I'm Server" << endl;
 
 	serverSocketPractice3();

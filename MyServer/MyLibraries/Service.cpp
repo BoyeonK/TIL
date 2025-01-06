@@ -60,10 +60,8 @@ ClientService::ClientService(
 { }
 
 bool ClientService::StartConnect() {
-	if (CanStart() == false) {
-		cout << "시작할수가업성" << endl;
+	if (CanStart() == false)
 		return false;
-	}
 		
 	shared_ptr<Session> sessionRef = CreateSessionRef();
 	return sessionRef->Connect();

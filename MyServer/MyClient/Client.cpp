@@ -11,7 +11,5 @@ int main() {
 	cout << "I'm Client" << endl;
 	example::Person pkt;
 
-	this_thread::sleep_for(1s);
-
 	clientSocketPractice4();
 }

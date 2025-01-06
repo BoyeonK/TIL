@@ -56,14 +56,6 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 
 	pAcceptTask->Init();
 	pAcceptTask->_sessionRef = sessionRef;
-
-	if (_socketHandle == INVALID_SOCKET) {
-		cout << "INVALID" << endl;
-	}
-
-	if (sessionRef->GetSocket() == INVALID_SOCKET) {
-		cout << "INVALID" << endl;
-	}
 	
 	DWORD bytesReceived;
 	if (false == SocketUtils::AcceptEx(
