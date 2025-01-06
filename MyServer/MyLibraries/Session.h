@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "CompletionPortCore.h"
 #include "NetAddress.h"
 
@@ -14,15 +13,19 @@ public:
 	Session();
 	~Session();
 
-	void Send();
+	void Send(char* sendBuffer);
 	bool Connect();
 	void Disconnect();
+
+public:
+	SOCKET GetSocket() { return _socketHandle; }
+	void SetNetAddress(NetAddress addr) { _address = addr };
 
 private:
 	bool				RegisterConnect();
 	bool				RegisterDisconnect();
 	void				RegisterRecv();
-	void				RegisterSend();
+	//void				RegisterSend(char* sendBuffer);
 
 	void				ProcessConnect();
 	void				ProcessDisconnect();
@@ -36,6 +39,10 @@ private:
 	weak_ptr<Service> _serviceWRef;
 	NetAddress _address;
 	SOCKET _socketHandle;
-	char* _recvBuffer[100];
+	char _recvBuffer[1000];
+	
+	//send버퍼 테스트 코드.
+	//send요청은 여러 쓰레드에 의해 일어날 수 있으므로, 이 방식은 나중에 교체되어야 함.
+	char _sendBuffer[1000];
 };
 

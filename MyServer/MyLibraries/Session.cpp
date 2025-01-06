@@ -2,7 +2,8 @@
 #include "Session.h"
 #include "SocketUtils.h"
 
-Session::Session() {
+//recvBuffer와 sendBuffer는 이후에 새로운 class로서 만들어 줄 것임.
+Session::Session() : _recvBuffer("Hello World!"), _sendBuffer("Hello World!") {
 	_socketHandle = SocketUtils::CreateSocket();
 }
 
@@ -10,7 +11,9 @@ Session::~Session() {
 	SocketUtils::Close(_socketHandle);
 }
 
-void Session::Send() {
+void Session::Send(char* sendBuffer) {
+	int32_t bufSize = sizeof(sendBuffer);
+	//RegisterSend(sendBuffer);
 }
 
 bool Session::Connect() {
@@ -30,10 +33,11 @@ bool Session::RegisterDisconnect() {
 
 void Session::RegisterRecv() {
 }
-
-void Session::RegisterSend() {
+/*
+void Session::RegisterSend(char* sendBuffer) {
+	::WSASend(_socketHandle, &sendBuffer, 1, )
 }
-
+*/
 void Session::ProcessConnect() {
 }
 
