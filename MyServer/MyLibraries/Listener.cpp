@@ -7,10 +7,10 @@ Listener::~Listener() {
 		delete p;
 }
 
-bool Listener::StartAccept(shared_ptr<ServerService>& service) {
+bool Listener::StartAccept() {
 	//service객체와 연동
-	_service = service;
-	if (_service.lock() == nullptr)
+	shared_ptr<ServerService> service = _serverService.lock();
+	if (service == nullptr)
 		return false;
 
 	//Listen 소켓 생성
@@ -28,6 +28,8 @@ bool Listener::StartAccept(shared_ptr<ServerService>& service) {
 
 	//Bind시도
 	if (SocketUtils::Bind(_socketHandle, service->GetAddress()) == false) return false;
+
+	service = nullptr;
 
 	//Listen시도
 	if (SocketUtils::Listen(_socketHandle) == false) return false;
@@ -71,6 +73,7 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 }
 
 void Listener::CloseSocket() {
+	SocketUtils::Close(_socketHandle);
 }
 
 HANDLE Listener::GetHandle() {
@@ -104,7 +107,15 @@ void Listener::ProcessAccept(AcceptTask* pAcceptTask) {
 		RegisterAccept(pAcceptTask);
 		return;
 	}
+
 	sessionRef->SetNetAddress(NetAddress(sockAddress));
+	shared_ptr<ServerService> service = _serverService.lock();
+	if (service == nullptr) {
+		sessionRef == nullptr;
+		cout << "Invalid server service" << endl;
+		return;
+	}
+
 	//sessionRef->
 }
 
