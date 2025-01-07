@@ -61,7 +61,7 @@ void Listener::RegisterAccept(AcceptTask* pAcceptTask) {
 	if (false == SocketUtils::AcceptEx(
 		_socketHandle,
 		sessionRef->GetSocket(),
-		sessionRef->GetRecvBuffer(),
+		sessionRef->_RecvBuffer.WritePos(),
 		0,
 		sizeof(SOCKADDR_IN) + 16,
 		sizeof(SOCKADDR_IN) + 16,

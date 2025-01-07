@@ -7,9 +7,14 @@ class TestSession3 : public Session {
 		cout << "Succeed to Accept" << endl;
 	}
 
-	void OnRecv() {
+	int32_t OnRecv(char* buffer, int32_t len) {
 		cout << "message Recv" << endl;
-		cout << "message is : " << GetRecvBuffer() << endl;
+		size_t size = (len + 1);
+		char* message = new char[size];
+		memcpy(message, buffer, size);
+		cout << "message is : " << message << endl;
+		delete[] message;
+		return len;
 	}
 };
 

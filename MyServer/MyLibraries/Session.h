@@ -2,6 +2,7 @@
 #include "CompletionPortCore.h"
 #include "Service.h"
 #include "NetAddress.h"
+#include "RecvBuffer.h"
 
 using namespace std;
 
@@ -9,6 +10,10 @@ class Session : public CPObject {
 	friend class Listener;
 	friend class CPCore;
 	friend class Service;
+
+	enum {
+		BUFFER_SIZE = 0x10000,
+	};
 
 public:
 	Session();
@@ -25,7 +30,6 @@ public:
 	shared_ptr<Service> GetService() { return _serviceWRef.lock(); }
 	shared_ptr<Session> GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
 	bool isConnected() { return _connected; }
-	char* GetRecvBuffer() { return _recvBuffer; }
 	
 private:
 	virtual HANDLE GetHandle() override;
@@ -48,7 +52,7 @@ protected:
 	virtual void OnConnected() { }
 	virtual void OnDisconnected() { }
 	virtual void OnSend() { }
-	virtual void OnRecv() { }
+	virtual int32_t OnRecv(char* buffer, int32_t len) { return len; }
 
 private:
 	USE_RWLOCK;
@@ -57,7 +61,7 @@ private:
 	SOCKET _socketHandle;
 	atomic<bool> _connected = false;
 	weak_ptr<Service> _serviceWRef;
-	char _recvBuffer[1000];
+	RecvBuffer _RecvBuffer;
 	
 	//send버퍼 테스트 코드.
 	//send요청은 여러 쓰레드에 의해 일어날 수 있으므로, 이 방식은 나중에 교체되어야 함.

@@ -3,7 +3,7 @@
 #include "SocketUtils.h"
 
 //recvBuffer와 sendBuffer는 이후에 새로운 class로서 만들어 줄 것임.
-Session::Session() : _recvBuffer("Hello World!"), _sendBuffer("Hello World!") {
+Session::Session() : _RecvBuffer(BUFFER_SIZE), _sendBuffer("Hello World!") {
 	_socketHandle = SocketUtils::CreateSocket();
 }
 
@@ -86,8 +86,8 @@ void Session::RegisterRecv() {
 	_RT.Init();
 	_RT._OwnerRef = shared_from_this();
 	WSABUF wsaBuf;
-	wsaBuf.buf = _recvBuffer;
-	wsaBuf.len = 1000;
+	wsaBuf.buf = _RecvBuffer.WritePos();
+	wsaBuf.len = _RecvBuffer.FreeSize();
 	DWORD numOfBytes = 0;
 	DWORD flags = 0;
 	if (SOCKET_ERROR == ::WSARecv(_socketHandle, &wsaBuf, 1, &numOfBytes, &flags, &_RT, nullptr)) {
@@ -133,7 +133,19 @@ void Session::ProcessRecv(int32_t numOfBytes) {
 		cout << "0byte Recv!!" << endl;
 		return;
 	}
-	OnRecv();
+
+	if (_RecvBuffer.OnWrite(numOfBytes) == false) {
+		//overflow 발생
+		return;
+	}
+
+	int32_t dataSize = _RecvBuffer.DataSize();
+	int32_t processLen = OnRecv(_RecvBuffer.ReadPos(), dataSize);
+	if (processLen < 0 || dataSize < processLen||_RecvBuffer.OnRead(processLen) == false) {
+		//overflow 발생
+		return;
+	}
+	_RecvBuffer.Clean();
 	RegisterRecv();
 }
 
