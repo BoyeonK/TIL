@@ -14,7 +14,7 @@ public:
 	Session();
 	~Session();
 
-	void Send(char* sendBuffer);
+	void Send(char* sendBuffer, int32_t bufSize);
 	bool Connect();
 	void Disconnect();
 

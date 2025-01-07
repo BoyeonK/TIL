@@ -48,28 +48,16 @@ void ServiceWithIocp_Client() {
 	);
 
 	shared_ptr<Session> CustomSession = CS->CustomStart();
-	if (CS == nullptr) {
-		cout << "sdf" << endl;
-		return;
-	}
 	char message[100] = "Hello World!";
 
 	GThreadManager->Launch([=]() {
 		while (true) {
-			if (CS == nullptr) {
-				cout << "asdf" << endl;
-				break;
-			}
-			if (CS->GetCPCoreRef()->GetHandle() == INVALID_HANDLE_VALUE) {
-				cout << "ffff" << endl;
-				break;
-			}
 			CS->GetCPCoreRef()->Dispatch();
 		}
 	});
 
-	this_thread::sleep_for(5s);
-	CustomSession->Send(message);
+	this_thread::sleep_for(3s);
+	CustomSession->Send(message, 100);
 
 	GThreadManager->Join();
 }

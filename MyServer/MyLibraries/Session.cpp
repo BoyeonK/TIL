@@ -11,8 +11,7 @@ Session::~Session() {
 	SocketUtils::Close(_socketHandle);
 }
 
-void Session::Send(char* sendBuffer) {
-	int32_t bufSize = sizeof(sendBuffer);
+void Session::Send(char* sendBuffer, int32_t bufSize) {
 	RegisterSend(sendBuffer, bufSize);
 }
 
