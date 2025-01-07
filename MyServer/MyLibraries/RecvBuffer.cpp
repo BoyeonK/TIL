@@ -7,8 +7,17 @@ RecvBuffer::RecvBuffer(uint32_t bufferSize) : _bufferSize(bufferSize) {
 }
 
 void RecvBuffer::Clean() {
+	int32_t remainedBufSize = DataSize();
+	if (remainedBufSize == 0) 
+		_readPos = _writePos = 0;
+	else {
+		if (FreeSize() < _bufferSize) {
+			::memcpy(&_buffer[0], &_buffer[_readPos], remainedBufSize);
+			_readPos = 0;
+			_writePos = remainedBufSize;
+		}
+	}
 }
-
 
 bool RecvBuffer::OnWrite(int32_t numOfBytes) {
 	//커널에서 받아 올 크기보다, 남아있는 Recv버퍼의 크기가 작다면 false.
