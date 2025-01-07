@@ -1,14 +1,15 @@
 #include "pch.h"
 #include <iostream>
-#include "serverSocketPractice1.h"
-#include "serverSocketPractice2.h"
-#include "serverSocketPractice3.h"
 #include <thread>
+//#include "serverSocketPractice1.h"
+//#include "serverSocketPractice2.h"
+#include "ServiceWithIocp_Server.h"
+
 
 using namespace std;
 
 int main() {
 	cout << "I'm Server" << endl;
 
-	serverSocketPractice3();
+	ServiceWithIocp_Server();
 }

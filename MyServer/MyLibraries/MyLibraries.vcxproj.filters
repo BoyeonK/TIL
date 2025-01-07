@@ -60,6 +60,9 @@
     <ClInclude Include="SocketUtils.h">
       <Filter>GlobalVariables</Filter>
     </ClInclude>
+    <ClInclude Include="RecvBuffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyLibraries.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="SocketUtils.cpp">
       <Filter>GlobalVariables</Filter>
+    </ClCompile>
+    <ClCompile Include="RecvBuffer.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

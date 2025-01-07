@@ -21,7 +21,7 @@
     <ClCompile Include="serverSocketPractice2.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
-    <ClCompile Include="serverSocketPractice3.cpp">
+    <ClCompile Include="ServiceWithIocp_Server.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="serverSocketPractice2.h">
       <Filter>practiceCodes</Filter>
     </ClInclude>
-    <ClInclude Include="serverSocketPractice3.h">
+    <ClInclude Include="ServiceWithIocp_Server.h">
       <Filter>practiceCodes</Filter>
     </ClInclude>
   </ItemGroup>

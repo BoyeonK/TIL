@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "clientSocketPractice4.h"
+#include "ServiceWithIocp_Client.h"
 #include "CoreGlobal.h"
 
 class CustomClientSession : public Session {
@@ -12,7 +12,7 @@ shared_ptr<CustomClientSession> CCSmaker() {
 	return make_shared<CustomClientSession>();
 }
 
-void clientSocketPractice4() {
+void ServiceWithIocp_Client() {
 	shared_ptr<ClientService> CS = make_shared<ClientService>(
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),

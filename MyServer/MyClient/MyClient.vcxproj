@@ -147,7 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="clientSocketPractice3.cpp" />
-    <ClCompile Include="clientSocketPractice4.cpp" />
+    <ClCompile Include="ServiceWithIocp_Client.cpp" />
     <ClCompile Include="example.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
@@ -160,7 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clientSocketPractice3.h" />
-    <ClInclude Include="clientSocketPractice4.h" />
+    <ClInclude Include="ServiceWithIocp_Client.h" />
     <ClInclude Include="example.pb.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="clientSocketPractice1.h" />
