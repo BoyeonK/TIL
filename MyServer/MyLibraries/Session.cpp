@@ -34,6 +34,7 @@ void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
 	case (TaskType::Disconnect):
 		break;
 	case (TaskType::Recv):
+		ProcessRecv(numOfBytes);
 		break;
 	case (TaskType::Send):
 		ProcessSend(numOfBytes);
@@ -79,7 +80,22 @@ bool Session::RegisterDisconnect() {
 }
 
 void Session::RegisterRecv() {
-	
+	if (isConnected() == false)
+		return;
+
+	_RT.Init();
+	_RT._OwnerRef = shared_from_this();
+	WSABUF wsaBuf;
+	wsaBuf.buf = _recvBuffer;
+	wsaBuf.len = 1000;
+	DWORD numOfBytes = 0;
+	DWORD flags = 0;
+	if (SOCKET_ERROR == ::WSARecv(_socketHandle, &wsaBuf, 1, &numOfBytes, &flags, &_RT, nullptr)) {
+		int32_t errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING) {
+			_RT._OwnerRef = nullptr;
+		}
+	}
 }
 
 void Session::RegisterSend(char* sendBuffer, int32_t numOfBytes) {
@@ -111,6 +127,14 @@ void Session::ProcessDisconnect() {
 }
 
 void Session::ProcessRecv(int32_t numOfBytes) {
+	_RT._OwnerRef = nullptr;
+	if (numOfBytes == 0) {
+		//연결이 끊겼을 때 0byte Recv가 들어온다.
+		cout << "0byte Recv!!" << endl;
+		return;
+	}
+	OnRecv();
+	RegisterRecv();
 }
 
 void Session::ProcessSend(int32_t numOfBytes) {

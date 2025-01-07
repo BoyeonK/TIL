@@ -6,6 +6,11 @@ class TestSession3 : public Session {
 	void OnConnected() {
 		cout << "Succeed to Accept" << endl;
 	}
+
+	void OnRecv() {
+		cout << "message Recv" << endl;
+		cout << "message is : " << GetRecvBuffer() << endl;
+	}
 };
 
 shared_ptr<TestSession3> SessionMaker() {
