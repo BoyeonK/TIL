@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "CoreGlobal.h"
 #include "serverSocketPractice3.h"
 
 class TestSession3 : public Session {
@@ -12,8 +13,6 @@ shared_ptr<TestSession3> SessionMaker() {
 }
 
 void serverSocketPractice3() {
-	SocketUtils::Init();
-
 	shared_ptr<ServerService> SS = make_shared<ServerService>(
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),
@@ -23,14 +22,10 @@ void serverSocketPractice3() {
 
 	SS->StartAccept();
 
-	if (SS == nullptr) {
-		cout << "err" << endl;
-	}
-	if (SS->GetCPCoreRef()->GetHandle() == INVALID_HANDLE_VALUE) {
-		cout << "err" << endl;
-	}
-
-	while (true) {
-		SS->GetCPCoreRef()->Dispatch();
-	}
+	GThreadManager->Launch([=]() {
+		while (true) {
+			SS->GetCPCoreRef()->Dispatch();
+		}
+	});
+	GThreadManager->Join();
 }

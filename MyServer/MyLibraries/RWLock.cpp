@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "RWLock.h"
-#include "TLSvariables.h"
+#include "CoreGlobal.h"
 #include <thread>
 
 //#include <sysinfoapi.h> Windows에 종속적

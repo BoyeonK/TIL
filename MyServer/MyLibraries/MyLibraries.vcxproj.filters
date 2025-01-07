@@ -13,6 +13,9 @@
     <Filter Include="Thread">
       <UniqueIdentifier>{f8650f06-5fa7-4358-88fa-02ebd2e184c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GlobalVariables">
+      <UniqueIdentifier>{843c2aaf-6294-40fa-8817-a4f122d10fae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -23,9 +26,6 @@
     </ClInclude>
     <ClInclude Include="MyMacros.h">
       <Filter>main</Filter>
-    </ClInclude>
-    <ClInclude Include="SocketUtils.h">
-      <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="CorePch.h">
       <Filter>main</Filter>
@@ -54,11 +54,11 @@
     <ClInclude Include="RWLock.h">
       <Filter>Thread</Filter>
     </ClInclude>
-    <ClInclude Include="TLSvariables.h">
-      <Filter>Thread</Filter>
-    </ClInclude>
     <ClInclude Include="CoreGlobal.h">
-      <Filter>main</Filter>
+      <Filter>GlobalVariables</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketUtils.h">
+      <Filter>GlobalVariables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,9 +67,6 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="SocketUtils.cpp">
-      <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="NetAddress.cpp">
       <Filter>Network</Filter>
@@ -95,11 +92,11 @@
     <ClCompile Include="RWLock.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
-    <ClCompile Include="TLSvariables.cpp">
-      <Filter>Thread</Filter>
-    </ClCompile>
     <ClCompile Include="CoreGlobal.cpp">
-      <Filter>main</Filter>
+      <Filter>GlobalVariables</Filter>
+    </ClCompile>
+    <ClCompile Include="SocketUtils.cpp">
+      <Filter>GlobalVariables</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

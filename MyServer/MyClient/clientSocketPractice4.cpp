@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "clientSocketPractice4.h"
+#include "CoreGlobal.h"
 
 class CustomClientSession : public Session {
 	void OnConnected() {
@@ -12,9 +13,6 @@ shared_ptr<CustomClientSession> CCSmaker() {
 }
 
 void clientSocketPractice4() {
-	SocketUtils::Init();
-
-	this_thread::sleep_for(2s);
 	shared_ptr<ClientService> CS = make_shared<ClientService>(
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),
@@ -24,14 +22,10 @@ void clientSocketPractice4() {
 
 	CS->StartConnect();
 
-	if (CS == nullptr) {
-		cout << "err" << endl;
-	}
-	if (CS->GetCPCoreRef()->GetHandle() == INVALID_HANDLE_VALUE) {
-		cout << "err" << endl;
-	}
-
-	while (true) {
-		CS->GetCPCoreRef()->Dispatch();
-	}
+	GThreadManager->Launch([=]() {
+		while (true) {
+			CS->GetCPCoreRef()->Dispatch();
+		}
+	});
+	GThreadManager->Join();
 }
