@@ -35,7 +35,7 @@ private:
 	bool				RegisterConnect();
 	bool				RegisterDisconnect();
 	void				RegisterRecv();
-	//void				RegisterSend(char* sendBuffer);
+	void				RegisterSend(char* sendBuffer, int32_t numOfBytes);
 
 	void				ProcessConnect();
 	void				ProcessDisconnect();

@@ -13,7 +13,7 @@ Session::~Session() {
 
 void Session::Send(char* sendBuffer) {
 	int32_t bufSize = sizeof(sendBuffer);
-	//RegisterSend(sendBuffer);
+	RegisterSend(sendBuffer, bufSize);
 }
 
 bool Session::Connect() {
@@ -37,6 +37,7 @@ void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
 	case (TaskType::Recv):
 		break;
 	case (TaskType::Send):
+		ProcessSend(numOfBytes);
 		break;
 	default:
 		break;
@@ -81,11 +82,24 @@ bool Session::RegisterDisconnect() {
 void Session::RegisterRecv() {
 	
 }
-/*
-void Session::RegisterSend(char* sendBuffer) {
-	::WSASend(_socketHandle, &sendBuffer, 1, )
+
+void Session::RegisterSend(char* sendBuffer, int32_t numOfBytes) {
+	_ST.Init();
+	_ST._OwnerRef = shared_from_this();
+
+	WSABUF wsaBuf;
+	wsaBuf.buf = sendBuffer;
+	wsaBuf.len = static_cast<ULONG>(numOfBytes);
+	DWORD bytesSent = 0;
+	DWORD flags = 0;
+	if (SOCKET_ERROR == ::WSASend(_socketHandle, &wsaBuf, 1, &bytesSent, flags, &_ST, nullptr)) {
+		int32_t errorCode = WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING) {
+			_ST._OwnerRef = nullptr;
+		}
+	}
 }
-*/
+
 void Session::ProcessConnect() {
 	_CT._OwnerRef = nullptr;
 	_connected.store(true);
@@ -101,6 +115,8 @@ void Session::ProcessRecv(int32_t numOfBytes) {
 }
 
 void Session::ProcessSend(int32_t numOfBytes) {
+	cout << numOfBytes << " is sent completely" << endl;
+	_ST._OwnerRef = nullptr;
 }
 
 void Session::HandleError(int32_t errorCode) {

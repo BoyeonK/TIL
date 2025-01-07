@@ -34,7 +34,7 @@ bool CPCore::Dispatch(uint32_t timeoutMs) {
 	ULONG_PTR key = 0;
 	CPTask* cpTask = nullptr;
 
-	if (::GetQueuedCompletionStatus(
+	if (true == ::GetQueuedCompletionStatus(
 		_handle,
 		OUT & numOfBytes,
 		OUT & key,
