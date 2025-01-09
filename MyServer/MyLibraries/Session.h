@@ -3,6 +3,8 @@
 #include "Service.h"
 #include "NetAddress.h"
 #include "RecvBuffer.h"
+#include "SendBuffer.h"
+#include <queue>
 
 using namespace std;
 
@@ -19,7 +21,7 @@ public:
 	Session();
 	~Session();
 
-	void Send(char* sendBuffer, int32_t bufSize);
+	void Send(shared_ptr<SendBuffer> sendBufferRef);
 	bool Connect();
 	void Disconnect();
 
@@ -39,7 +41,7 @@ private:
 	bool				RegisterConnect();
 	bool				RegisterDisconnect();
 	void				RegisterRecv();
-	void				RegisterSend(char* sendBuffer, int32_t numOfBytes);
+	void				RegisterSend();
 
 	void				ProcessConnect();
 	void				ProcessDisconnect();
@@ -51,7 +53,7 @@ private:
 protected:
 	virtual void OnConnected() { }
 	virtual void OnDisconnected() { }
-	virtual void OnSend() { }
+	virtual void OnSend(int32_t numOfBytes) { }
 	virtual int32_t OnRecv(char* buffer, int32_t len) { return len; }
 
 private:
@@ -62,10 +64,8 @@ private:
 	atomic<bool> _connected = false;
 	weak_ptr<Service> _serviceWRef;
 	RecvBuffer _RecvBuffer;
-	
-	//send버퍼 테스트 코드.
-	//send요청은 여러 쓰레드에 의해 일어날 수 있으므로, 이 방식은 나중에 교체되어야 함.
-	char _sendBuffer[1000];
+	queue<shared_ptr<SendBuffer>> _sendBufferRefQueue;
+	atomic<bool> _sendRegistered = false;
 
 private:
 	ConnectTask _CT;

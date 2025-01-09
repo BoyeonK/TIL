@@ -3,7 +3,7 @@
 #include "SocketUtils.h"
 
 //recvBuffer와 sendBuffer는 이후에 새로운 class로서 만들어 줄 것임.
-Session::Session() : _RecvBuffer(BUFFER_SIZE), _sendBuffer("Hello World!") {
+Session::Session() : _RecvBuffer(BUFFER_SIZE) {
 	_socketHandle = SocketUtils::CreateSocket();
 }
 
@@ -11,8 +11,20 @@ Session::~Session() {
 	SocketUtils::Close(_socketHandle);
 }
 
-void Session::Send(char* sendBuffer, int32_t bufSize) {
-	RegisterSend(sendBuffer, bufSize);
+void Session::Send(shared_ptr<SendBuffer> sendBufferRef) {
+	if (isConnected() == false)
+		return;
+	bool registerSend = false;
+	{
+		WRITE_RWLOCK;
+		_sendBufferRefQueue.push(sendBufferRef);
+		//exchange는 인자의 값으로 atomic변수를 바꾸면서
+		//원래의 값을 리턴한다.
+		if (_sendRegistered.exchange(true) == false)
+			registerSend = true;
+	}
+	if (registerSend)
+		RegisterSend();
 }
 
 bool Session::Connect() {
@@ -98,19 +110,40 @@ void Session::RegisterRecv() {
 	}
 }
 
-void Session::RegisterSend(char* sendBuffer, int32_t numOfBytes) {
+void Session::RegisterSend() {
+	if (isConnected() == false)
+		return;
 	_ST.Init();
 	_ST._OwnerRef = shared_from_this();
+	{
+		WRITE_RWLOCK;
+		int32_t writeSize = 0;
+		while (_sendBufferRefQueue.empty() == false) {
+			shared_ptr<SendBuffer> sendBufferRef = _sendBufferRefQueue.front();
+			writeSize += sendBufferRef->WriteSize();
 
+			_sendBufferRefQueue.pop();
+			_ST._sendBufferRefs.push_back(sendBufferRef);
+		}
+	}
+
+	vector<WSABUF> wsaBufs;
+	wsaBufs.reserve(_ST._sendBufferRefs.size());
 	WSABUF wsaBuf;
-	wsaBuf.buf = sendBuffer;
-	wsaBuf.len = static_cast<ULONG>(numOfBytes);
-	DWORD bytesSent = 0;
-	DWORD flags = 0;
-	if (SOCKET_ERROR == ::WSASend(_socketHandle, &wsaBuf, 1, &bytesSent, flags, &_ST, nullptr)) {
+	for (shared_ptr<SendBuffer>& sendBufferRef : _ST._sendBufferRefs) {
+		WSABUF wsaBuf;
+		wsaBuf.buf = reinterpret_cast<char*>(sendBufferRef->Buffer());
+		wsaBuf.len = static_cast<LONG>(sendBufferRef->WriteSize());
+		wsaBufs.push_back(wsaBuf);
+	}
+
+	DWORD numOfBytes = 0;
+	if (SOCKET_ERROR == ::WSASend(_socketHandle, wsaBufs.data(), static_cast<DWORD>(wsaBufs.size()), OUT &numOfBytes, 0, &_ST, nullptr)) {
 		int32_t errorCode = WSAGetLastError();
 		if (errorCode != WSA_IO_PENDING) {
 			_ST._OwnerRef = nullptr;
+			_ST._sendBufferRefs.clear();
+			_sendRegistered.store(false);
 		}
 	}
 }
@@ -150,8 +183,23 @@ void Session::ProcessRecv(int32_t numOfBytes) {
 }
 
 void Session::ProcessSend(int32_t numOfBytes) {
-	cout << numOfBytes << " is sent completely" << endl;
 	_ST._OwnerRef = nullptr;
+	_ST._sendBufferRefs.clear();
+	if (numOfBytes == 0) {
+		cout << "0bytes sent?" << endl;
+	}
+	OnSend(numOfBytes);
+
+	bool isEmpty = true;
+	{
+		WRITE_RWLOCK;
+		if (_sendBufferRefQueue.empty())
+			_sendRegistered.store(false);
+		else
+			isEmpty = false;
+	}
+	if (isEmpty == false)
+		RegisterSend();
 }
 
 void Session::HandleError(int32_t errorCode) {

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "ServiceWithIocp_Client.h"
 #include "CoreGlobal.h"
+#include "PB.pb.h"
+#include "ClientPacketHandler.h"
 
 //Client에서 Service를 상속받음
 class CustomClientService : public ClientService {
@@ -59,12 +61,11 @@ void ServiceWithIocp_Client() {
 	this_thread::sleep_for(3s);
 
 	while (true) {
-		shared_ptr<SendBuffer> SendBufferRef = GSendBufferManager->Open(150);
-		char* msg = reinterpret_cast<char*>(SendBufferRef->Buffer());
-		strcpy_s(msg, 150, "Sent by new objects!");
-		SendBufferRef->Close(100);
-		CustomSession->Send(msg, 100);
-		this_thread::sleep_for(0.5s);
+		PB::S_CHAT pkt;
+		string message = "This Message is serialized by PB";
+		shared_ptr<SendBuffer> SendBufferRef = ClientPacketHandler::MakeSendBufferRef(pkt);
+		CustomSession->Send(SendBufferRef);
+		this_thread::sleep_for(1s);
 	}
 
 	GThreadManager->Join();

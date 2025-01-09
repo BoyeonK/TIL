@@ -29,7 +29,7 @@ public:
 		return GPacketHandler[header->_id](sessionRef, buffer, len);
 	}
 	//auto
-	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::C_CHAT& pkt) { return MakeSendBufferRef(pkt, PKT_S_CHAT); }
+	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::S_CHAT& pkt) { return MakeSendBufferRef(pkt, PKT_S_CHAT); }
 
 private:
 	template<typename PBType, typename HandlerFunc>
@@ -49,7 +49,7 @@ private:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBufferRef->Buffer());
 		header->_size = packetSize;
 		header->_id = pktId;
-		pkt.SerializeToArray(&header[1]/*(++header)*/, dataSize));
+		pkt.SerializeToArray(&header[1]/*(++header)*/, dataSize);
 		sendBufferRef->Close(packetSize);
 
 		return sendBufferRef;

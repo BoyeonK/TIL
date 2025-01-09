@@ -1,5 +1,7 @@
 #pragma once
 #include "Session.h"
+#include "SendBuffer.h"
+#include <vector>
 
 class CPTask;
 class Session;
@@ -52,7 +54,9 @@ public:
 
 class SendTask : public CPTask {
 public:
-	SendTask() : CPTask(TaskType::Send) { }
+	SendTask() : CPTask(TaskType::Send) { };
+
+	vector<shared_ptr<SendBuffer>>_sendBufferRefs;
 };
 
 class CPCore {
