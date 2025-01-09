@@ -2,21 +2,25 @@
 
 2025 1 2th
 
+- TLS
+  
+  - TLS를 활용하여 Thread-safe한 방법으로 `::WSASend`해보기
+
 - `static`함수 안의 `static`변수 선언 이유
 
 - `char`와 `unsigned char`
 
 - 스마트포인터
   
-  - shared_ptr, weak_ptr
+  - `shared_ptr`, `weak_ptr`
   
-  - enable_shared_from_this<_Ty>, shared_from_this()
+  - `enable_shared_from_this<_Ty>`, `shared_from_this()`
   
-  - static_pointer_cast<_Ty>()
+  - `static_pointer_cast<_Ty>()`
 
 - 알고싶지 않았던, 직접 박아봐야 아는 유형별 에러들...
   
-  - 별도의 .md파일로 분류, 업데이트 할 예정
+  - 별도의 .md파일로 분류하고, 고통받을 때 마다 업데이트 할 예정
 
 2025 1 1th
 
