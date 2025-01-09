@@ -7,6 +7,9 @@
     <Filter Include="practiceCodes">
       <UniqueIdentifier>{93d36e6d-aae3-46a0-9412-710227d0f1d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PBfiles">
+      <UniqueIdentifier>{5a6aa85c-5902-4414-9fc1-2d466f8a0c44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -24,6 +27,9 @@
     <ClCompile Include="ServiceWithIocp_Server.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
+    <ClCompile Include="PB.pb.cc">
+      <Filter>PBfiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -40,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="ServiceWithIocp_Server.h">
       <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="PB.pb.h">
+      <Filter>PBfiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

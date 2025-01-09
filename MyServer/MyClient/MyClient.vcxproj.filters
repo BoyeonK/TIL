@@ -18,9 +18,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="example.pb.cc">
-      <Filter>PBfiles</Filter>
-    </ClCompile>
     <ClCompile Include="clientSocketPractice1.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
@@ -30,13 +27,13 @@
     <ClCompile Include="ServiceWithIocp_Client.cpp">
       <Filter>practiceCodes</Filter>
     </ClCompile>
+    <ClCompile Include="PB.pb.cc">
+      <Filter>PBfiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>main</Filter>
-    </ClInclude>
-    <ClInclude Include="example.pb.h">
-      <Filter>PBfiles</Filter>
     </ClInclude>
     <ClInclude Include="clientSocketPractice1.h">
       <Filter>practiceCodes</Filter>
@@ -49,6 +46,9 @@
     </ClInclude>
     <ClInclude Include="ServiceWithIocp_Client.h">
       <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="PB.pb.h">
+      <Filter>PBfiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

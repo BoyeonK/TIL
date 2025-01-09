@@ -6,7 +6,7 @@ class SendBuffer;
 class SendBufferChunk : public enable_shared_from_this<SendBufferChunk> {
 public:
 	enum {
-		SEND_BUFFER_CHUNK_SIZE = 1500,
+		SEND_BUFFER_CHUNK_SIZE = 6000,
 	};
 	SendBufferChunk() {	Init(); }
 
@@ -31,7 +31,7 @@ private:
 
 class SendBufferManager {
 	enum {
-		SEND_BUFFER_CHUNK_SIZE = 1500,
+		SEND_BUFFER_CHUNK_SIZE = 6000,
 	};
 
 public:
