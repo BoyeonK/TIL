@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="ClientPacketHandler.cpp" />
     <ClCompile Include="clientSocketPractice3.cpp" />
     <ClCompile Include="PB.pb.cc">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
@@ -158,6 +159,7 @@
     <ClCompile Include="clientSocketPractice1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClientPacketHandler.h" />
     <ClInclude Include="clientSocketPractice3.h" />
     <ClInclude Include="PB.pb.h" />
     <ClInclude Include="ServiceWithIocp_Client.h" />

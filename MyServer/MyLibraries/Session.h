@@ -74,3 +74,17 @@ private:
 	SendTask _ST;
 };
 
+struct PacketHeader {
+	uint16_t _size;
+	uint16_t _id;
+};
+
+class PBSession : public Session {
+public:
+	PBSession() { }
+	~PBSession() { }
+
+protected:
+	//virtual int32_t OnRecv(char* buffer, int32_t len) sealed;
+	virtual void OnRecvPacket(unsigned char* buffer, int32_t len) abstract;
+};

@@ -30,6 +30,9 @@
     <ClCompile Include="PB.pb.cc">
       <Filter>PBfiles</Filter>
     </ClCompile>
+    <ClCompile Include="ClientPacketHandler.cpp">
+      <Filter>PBfiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -48,6 +51,9 @@
       <Filter>practiceCodes</Filter>
     </ClInclude>
     <ClInclude Include="PB.pb.h">
+      <Filter>PBfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientPacketHandler.h">
       <Filter>PBfiles</Filter>
     </ClInclude>
   </ItemGroup>
