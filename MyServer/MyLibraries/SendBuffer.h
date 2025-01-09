@@ -1,12 +1,9 @@
 #pragma once
 #include <array>
 
-class SendBuffer {
-private:
-	char* _sendBuffer;
-};
+class SendBuffer;
 
-class SendBufferChunk {
+class SendBufferChunk : public enable_shared_from_this<SendBufferChunk> {
 public:
 	enum {
 		SEND_BUFFER_CHUNK_SIZE = 6000,
@@ -17,11 +14,11 @@ public:
 	void Close(uint32_t allocSize);
 
 	bool IsOpen() { return _isOpen; };
-	unsigned char* Buffer() { return &_buffer[_usedSize]; }
+	unsigned char* Index() { return &_buffer[_usedSize]; }
 
 	//std::array<_ty>.size()가 int64를 반환하기 때문에
 	//형변환을 해주지 않는다면 데이터 손실을 야기할 수 있다.
-	int32_t FreeSize() { return static_cast<int32_t>(_buffer.size() - _usedSize); }
+	uint32_t FreeSize() { return static_cast<uint32_t>(_buffer.size() - _usedSize); }
 
 private:
 	array<unsigned char, SEND_BUFFER_CHUNK_SIZE> _buffer = {};
@@ -31,3 +28,11 @@ private:
 	uint32_t _usedSize;
 };
 
+class SendBuffer {
+public:
+	SendBuffer(shared_ptr<SendBufferChunk> chunkRef, unsigned char* index, uint32_t allocSize);
+private:
+	shared_ptr<SendBufferChunk> _chunkRef;
+	unsigned char* _index;
+	uint32_t _allocSize;
+};
