@@ -3,19 +3,22 @@
 #include "SocketUtils.h"
 #include "SendBuffer.h"
 
+ThreadManager* GThreadManager = nullptr;
+SendBufferManager* GSendBufferManager = nullptr;
 thread_local uint32_t MyThreadID = 0;
 thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef = nullptr;
-ThreadManager* GThreadManager = nullptr;
 
 class CoreGlobal {
 public:
 	CoreGlobal() {
 		GThreadManager = new ThreadManager();
+		GSendBufferManager = new SendBufferManager();
 		SocketUtils::Init();
 	}
 
 	~CoreGlobal() {
 		delete GThreadManager;
+		delete GSendBufferManager;
 		SocketUtils::Clear();
 	}
 } GCoreGlobal;

@@ -2,9 +2,10 @@
 #include <mutex>
 #include "SendBuffer.h"
 
+extern class ThreadManager* GThreadManager;
+extern class SendBufferManager* GSendBufferManager;
 extern thread_local uint32_t MyThreadID;
 extern thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef;
-extern class ThreadManager* GThreadManager;
 
 class ThreadManager {
 public:

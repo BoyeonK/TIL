@@ -14,8 +14,7 @@ shared_ptr<SendBuffer> SendBufferChunk::Open(uint32_t allocSize) {
 	//초기화가 잘못됬거나, Close()가 동작하지 않았다.
 	ASSERT_CRASH(_isOpen == false);
 
-	//남은 공간이 부족할 경우, nullptr을 리턴.
-	//이것이 트리거가 되서 nullptr을 리턴한 경우, Manager에서 새 chunk를 할당해 줄 것임.
+	//Manager에서 Open할때 이 경우를 체크해 주었으나, 혹시 모르니 더블체크
 	if (allocSize > FreeSize())
 		return nullptr;
 
@@ -41,6 +40,9 @@ SendBuffer::SendBuffer(
 { }
 
 shared_ptr<SendBuffer> SendBufferManager::Open(uint32_t allocSize) {
+	//구조적으로 SEND_BUFFER_CHUNK크기보다 큰 바이트는 send할 수 없음
+	ASSERT_CRASH(allocSize <= SEND_BUFFER_CHUNK_SIZE);
+
 	if (LSendBufferChunkRef == nullptr or LSendBufferChunkRef->FreeSize() < allocSize) {
 		shared_ptr<SendBufferChunk> newChunk = { objectPool<SendBufferChunk>::alloc(), objectPool<SendBufferChunk>::dealloc };
 		LSendBufferChunkRef = newChunk;

@@ -30,6 +30,10 @@ private:
 };
 
 class SendBufferManager {
+	enum {
+		SEND_BUFFER_CHUNK_SIZE = 6000,
+	};
+
 public:
 	shared_ptr<SendBuffer> Open(uint32_t allockSize);
 };
