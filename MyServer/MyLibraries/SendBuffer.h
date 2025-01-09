@@ -8,6 +8,7 @@ public:
 	enum {
 		SEND_BUFFER_CHUNK_SIZE = 6000,
 	};
+	SendBufferChunk() {	Init(); }
 
 	void Init();
 	shared_ptr<SendBuffer> Open(uint32_t allocSize);
@@ -26,6 +27,11 @@ private:
 	//atomic으로 만들어 줄 필요가 없다.
 	bool _isOpen;
 	uint32_t _usedSize;
+};
+
+class SendBufferManager {
+public:
+	shared_ptr<SendBuffer> Open(uint32_t allockSize);
 };
 
 class SendBuffer {

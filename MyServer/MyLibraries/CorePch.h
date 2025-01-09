@@ -20,5 +20,6 @@
 #include "CompletionPortCore.h"
 #include "NetAddress.h"
 #include "SocketUtils.h"
+#include "CoreGlobal.h"
 
 using namespace std;

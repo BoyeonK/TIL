@@ -1,7 +1,9 @@
 #pragma once
 #include <mutex>
+#include "SendBuffer.h"
 
 extern thread_local uint32_t MyThreadID;
+extern thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef;
 extern class ThreadManager* GThreadManager;
 
 class ThreadManager {

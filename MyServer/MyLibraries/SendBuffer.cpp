@@ -20,7 +20,7 @@ shared_ptr<SendBuffer> SendBufferChunk::Open(uint32_t allocSize) {
 		return nullptr;
 
 	_isOpen = true;
-	shared_ptr<SendBuffer> SendBufferRef(objectPool<SendBuffer>::alloc(shared_from_this(), Index(), allocSize), objectPool<SendBuffer>::dealloc);
+	shared_ptr<SendBuffer> SendBufferRef = { objectPool<SendBuffer>::alloc(shared_from_this(), Index(), allocSize), objectPool<SendBuffer>::dealloc };
 	return SendBufferRef;
 }
 
@@ -39,3 +39,13 @@ SendBuffer::SendBuffer(
 	_index(index),
 	_allocSize(allocSize)
 { }
+
+shared_ptr<SendBuffer> SendBufferManager::Open(uint32_t allocSize) {
+	if (LSendBufferChunkRef == nullptr or LSendBufferChunkRef->FreeSize() < allocSize) {
+		shared_ptr<SendBufferChunk> newChunk = { objectPool<SendBufferChunk>::alloc(), objectPool<SendBufferChunk>::dealloc };
+		LSendBufferChunkRef = newChunk;
+	}
+	ASSERT_CRASH(LSendBufferChunkRef->IsOpen() == false);
+
+	return LSendBufferChunkRef->Open(allocSize);
+}

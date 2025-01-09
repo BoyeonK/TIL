@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "CoreGlobal.h"
 #include "SocketUtils.h"
+#include "SendBuffer.h"
 
 thread_local uint32_t MyThreadID = 0;
+thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef = nullptr;
 ThreadManager* GThreadManager = nullptr;
 
 class CoreGlobal {
