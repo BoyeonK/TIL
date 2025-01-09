@@ -7,7 +7,7 @@ class TestSession3 : public Session {
 		cout << "Succeed to Accept" << endl;
 	}
 
-	int32_t OnRecv(char* buffer, int32_t len) {
+	int32_t OnRecv(unsigned char* buffer, int32_t len) {
 		cout << "message Recv" << endl;
 		return len;
 	}
