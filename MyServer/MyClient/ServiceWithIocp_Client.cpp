@@ -57,7 +57,15 @@ void ServiceWithIocp_Client() {
 	});
 
 	this_thread::sleep_for(3s);
-	CustomSession->Send(message, 100);
+
+	while (true) {
+		shared_ptr<SendBuffer> SendBufferRef = GSendBufferManager->Open(150);
+		char* msg = reinterpret_cast<char*>(SendBufferRef->Buffer());
+		strcpy_s(msg, 150, "Sent by new objects!");
+		SendBufferRef->Close(100);
+		CustomSession->Send(msg, 100);
+		this_thread::sleep_for(0.5s);
+	}
 
 	GThreadManager->Join();
 }

@@ -6,7 +6,7 @@ class SendBuffer;
 class SendBufferChunk : public enable_shared_from_this<SendBufferChunk> {
 public:
 	enum {
-		SEND_BUFFER_CHUNK_SIZE = 6000,
+		SEND_BUFFER_CHUNK_SIZE = 1500,
 	};
 	SendBufferChunk() {	Init(); }
 
@@ -31,7 +31,7 @@ private:
 
 class SendBufferManager {
 	enum {
-		SEND_BUFFER_CHUNK_SIZE = 6000,
+		SEND_BUFFER_CHUNK_SIZE = 1500,
 	};
 
 public:
@@ -40,8 +40,8 @@ public:
 
 class SendBuffer {
 public:
-	SendBuffer() {}
-	~SendBuffer() {}
+	SendBuffer() { }
+	~SendBuffer() { }
 	//나는 SendBuffer를 pool을 통해 관리중이다. 재사용시 초기화 함수
 	void Init(shared_ptr<SendBufferChunk> chunkRef, unsigned char* index, uint32_t allocSize);
 
@@ -52,7 +52,7 @@ public:
 
 private:
 	shared_ptr<SendBufferChunk> _chunkRef;
-	unsigned char* _index;
+	unsigned char* _index = nullptr;
 
 	//처음 SendBuffer를 생성하면서, 쓰겠다고 선언한 값 (널널하게 부를 수 있다.)
 	uint32_t _allocSize = 0;
