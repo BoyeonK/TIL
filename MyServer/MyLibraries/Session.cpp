@@ -98,7 +98,7 @@ void Session::RegisterRecv() {
 	_RT.Init();
 	_RT._OwnerRef = shared_from_this();
 	WSABUF wsaBuf;
-	wsaBuf.buf = _RecvBuffer.WritePos();
+	wsaBuf.buf = reinterpret_cast<char*>(_RecvBuffer.WritePos());
 	wsaBuf.len = _RecvBuffer.FreeSize();
 	DWORD numOfBytes = 0;
 	DWORD flags = 0;
@@ -203,4 +203,28 @@ void Session::ProcessSend(int32_t numOfBytes) {
 }
 
 void Session::HandleError(int32_t errorCode) {
+}
+
+int32_t PBSession::OnRecv(unsigned char* buffer, int32_t len) {
+	//1. 버퍼 1개도 제대로 전송 안 되었을 수 있음.
+		//1_1. 헤더조차도 전송될 여지가 없는 바이트
+		//1_2. 못해도 헤더는 전송 될 여지가 있다.
+	//2. 버퍼 1개만 제대로 전송 되었을 수도 있음.
+	//3. 다수의 버퍼가 한번에 전송되었을 가능성 있음 (버퍼 1개처리하고 1번부터 다시시작)
+	int32_t processLen = 0;
+	while (true) {
+		int32_t dataSize = len - processLen;
+		if (dataSize < sizeof(PacketHeader))
+			break;
+
+		PacketHeader header = *(reinterpret_cast<PacketHeader*>(&buffer[processLen]));
+		if (dataSize < header._size)
+			break;
+
+		OnRecvPacket(&buffer[processLen], header._size);
+
+		processLen += header._size;
+	}
+	
+	return processLen;
 }

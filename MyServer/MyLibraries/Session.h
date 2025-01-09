@@ -54,7 +54,7 @@ protected:
 	virtual void OnConnected() { }
 	virtual void OnDisconnected() { }
 	virtual void OnSend(int32_t numOfBytes) { }
-	virtual int32_t OnRecv(char* buffer, int32_t len) { return len; }
+	virtual int32_t OnRecv(unsigned char* buffer, int32_t len) { return len; }
 
 private:
 	USE_RWLOCK;
@@ -85,6 +85,6 @@ public:
 	~PBSession() { }
 
 protected:
-	//virtual int32_t OnRecv(char* buffer, int32_t len) sealed;
+	virtual int32_t OnRecv(unsigned char* buffer, int32_t len) sealed;
 	virtual void OnRecvPacket(unsigned char* buffer, int32_t len) abstract;
 };
