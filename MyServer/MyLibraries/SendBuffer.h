@@ -40,9 +40,23 @@ public:
 
 class SendBuffer {
 public:
-	SendBuffer(shared_ptr<SendBufferChunk> chunkRef, unsigned char* index, uint32_t allocSize);
+	SendBuffer() {}
+	~SendBuffer() {}
+	//나는 SendBuffer를 pool을 통해 관리중이다. 재사용시 초기화 함수
+	void Init(shared_ptr<SendBufferChunk> chunkRef, unsigned char* index, uint32_t allocSize);
+
+	unsigned char* Buffer() { return _index; }
+	uint32_t AllocSize() { return _allocSize; }
+	uint32_t WriteSize() { return _writeSize; }
+	void Close(uint32_t writeSize);
+
 private:
 	shared_ptr<SendBufferChunk> _chunkRef;
 	unsigned char* _index;
-	uint32_t _allocSize;
+
+	//처음 SendBuffer를 생성하면서, 쓰겠다고 선언한 값 (널널하게 부를 수 있다.)
+	uint32_t _allocSize = 0;
+
+	//실제 덮어쓴 값
+	uint32_t _writeSize = 0;
 };

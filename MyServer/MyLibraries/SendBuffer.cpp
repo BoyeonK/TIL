@@ -19,7 +19,8 @@ shared_ptr<SendBuffer> SendBufferChunk::Open(uint32_t allocSize) {
 		return nullptr;
 
 	_isOpen = true;
-	shared_ptr<SendBuffer> SendBufferRef = { objectPool<SendBuffer>::alloc(shared_from_this(), Index(), allocSize), objectPool<SendBuffer>::dealloc };
+	shared_ptr<SendBuffer> SendBufferRef = { objectPool<SendBuffer>::alloc(), objectPool<SendBuffer>::dealloc };
+	SendBufferRef->Init(shared_from_this(), Index(), allocSize);
 	return SendBufferRef;
 }
 
@@ -29,15 +30,18 @@ void SendBufferChunk::Close(uint32_t allocSize) {
 	_usedSize += allocSize;
 }
 
-SendBuffer::SendBuffer(
-	shared_ptr<SendBufferChunk> chunkRef, 
-	unsigned char* index, 
-	uint32_t allocSize)
-:
-	_chunkRef(chunkRef),
-	_index(index),
-	_allocSize(allocSize)
-{ }
+void SendBuffer::Init(shared_ptr<SendBufferChunk> chunkRef, unsigned char* index, uint32_t allocSize) {
+	_chunkRef = chunkRef;
+	_index = index;
+	_allocSize = allocSize;
+	_writeSize = 0;
+}
+
+void SendBuffer::Close(uint32_t writeSize) {
+	ASSERT_CRASH(_allocSize >= writeSize);
+	_writeSize = writeSize;
+	_chunkRef->Close(writeSize);
+}
 
 shared_ptr<SendBuffer> SendBufferManager::Open(uint32_t allocSize) {
 	//구조적으로 SEND_BUFFER_CHUNK크기보다 큰 바이트는 send할 수 없음
