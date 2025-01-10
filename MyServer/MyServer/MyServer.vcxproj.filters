@@ -57,4 +57,12 @@
       <Filter>PBfiles</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="PB.proto">
+      <Filter>PBfiles</Filter>
+    </None>
+    <None Include="..\Common\CompileProto.bat">
+      <Filter>PBfiles</Filter>
+    </None>
+  </ItemGroup>
 </Project>

@@ -122,6 +122,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>CALL $(SolutionDir)Common\CompileProto.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -164,6 +167,13 @@
     <ClInclude Include="serverSocketPractice2.h" />
     <ClInclude Include="ServiceWithIocp_Server.h" />
     <ClInclude Include="socketPractice.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Common\CompileProto.bat" />
+    <None Include="PB.proto" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Include="PB.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
