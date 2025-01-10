@@ -13,9 +13,7 @@
 - 스마트포인터
   
   - `shared_ptr`, `weak_ptr`
-  
   - `enable_shared_from_this<_Ty>`, `shared_from_this()`
-  
   - `static_pointer_cast<_Ty>()`
 
 - 알고싶지 않았던, 직접 박아봐야 아는 유형별 에러들...
@@ -31,7 +29,6 @@
 - object pool
   
   - LockFree 방식의 연결리스트 (considering ABA problem)
-  
   - 메모리 정렬 (`alignas()`, `_aligned_malloc_()`, `_aligned_free_()`)
 
 - google protobuf
@@ -55,9 +52,7 @@
 - 멀티쓰레드
   
   - thread, Mutex 객체
-  
   - Future 객체
-  
   - Custom Mutex 클래스 구현
 
 - ::VirtualAlloc 함수를 활용한 할당자

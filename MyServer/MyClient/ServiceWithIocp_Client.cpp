@@ -17,23 +17,24 @@ public:
 		CPCoreRef,
 		address,
 		sessionFactory,
-		maxSessionCount)
-	{ }
+		maxSessionCount
+	) { }
 
-	shared_ptr<Session> CustomStart() {
-		if (CanStart() == false)
-			return nullptr;
-
-		shared_ptr<Session> sessionRef = CreateSessionRef();
-		sessionRef->Connect();
-		return sessionRef;
+	void BroadCast(shared_ptr<SendBuffer> sendBufferRef) {
+		for (shared_ptr<Session> sessionRef : _sessionRefs) {
+			sessionRef->Send(sendBufferRef);
+		}
 	}
 };
 
 //Client에서 Session을 상속받음
-class CustomClientSession : public Session {
+class CustomClientSession : public PBSession {
 	void OnConnected() {
 		cout << "Connected to server" << endl;
+	}
+
+	void OnRecvPacket(unsigned char* buffer, int32_t len) {
+		cout << "Recv!" << endl;
 	}
 };
 
@@ -42,6 +43,8 @@ shared_ptr<CustomClientSession> CCSmaker() {
 }
 
 void ServiceWithIocp_Client() {
+	ClientPacketHandler::Init();
+
 	shared_ptr<CustomClientService> CS = make_shared<CustomClientService>(
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),
@@ -49,8 +52,7 @@ void ServiceWithIocp_Client() {
 		1
 	);
 
-	shared_ptr<Session> CustomSession = CS->CustomStart();
-	char message[100] = "Hello World!";
+	CS->StartConnect();
 
 	GThreadManager->Launch([=]() {
 		while (true) {
@@ -63,8 +65,9 @@ void ServiceWithIocp_Client() {
 	while (true) {
 		PB::S_CHAT pkt;
 		string message = "This Message is serialized by PB";
+		pkt.set_msg(message);
 		shared_ptr<SendBuffer> SendBufferRef = ClientPacketHandler::MakeSendBufferRef(pkt);
-		CustomSession->Send(SendBufferRef);
+		CS->BroadCast(SendBufferRef);
 		this_thread::sleep_for(1s);
 	}
 

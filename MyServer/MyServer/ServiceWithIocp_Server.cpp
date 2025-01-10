@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "CoreGlobal.h"
 #include "ServiceWithIocp_Server.h"
+#include "ServerPacketHandler.h"
 
-class TestSession3 : public Session {
+class TestSession3 : public PBSession {
 	void OnConnected() {
 		cout << "Succeed to Accept" << endl;
 	}
 
-	int32_t OnRecv(unsigned char* buffer, int32_t len) {
+	void OnRecvPacket(unsigned char* buffer, int32_t len) {
+		ServerPacketHandler::HandlePacket(static_pointer_cast<PBSession>(shared_from_this()), buffer, len);
 		cout << "message Recv" << endl;
-		return len;
 	}
 };
 
@@ -18,6 +19,8 @@ shared_ptr<TestSession3> SessionMaker() {
 }
 
 void ServiceWithIocp_Server() {
+	ServerPacketHandler::Init();
+
 	shared_ptr<ServerService> SS = make_shared<ServerService>(
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),
