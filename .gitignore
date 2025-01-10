@@ -10,3 +10,5 @@ MyServer/Libs/Libraries/Protobuf/
 MyServer/Common/google/
 MyServer/Binary/
 MyServer/Tools/PBCompiler/PBCompiler/env/
+*.pb.cc
+*.pb.h
