@@ -60,11 +60,14 @@ void ServiceWithIocp_Client() {
 		}
 	});
 
+	int32_t pid = 0;
 	this_thread::sleep_for(3s);
+
 
 	while (true) {
 		PB::S_CHAT pkt;
 		string message = "This Message is serialized by PB";
+		pkt.set_playerid(pid++);
 		pkt.set_msg(message);
 		shared_ptr<SendBuffer> SendBufferRef = ClientPacketHandler::MakeSendBufferRef(pkt);
 		CS->BroadCast(SendBufferRef);
