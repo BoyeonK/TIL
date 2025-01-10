@@ -17,7 +17,7 @@ public:
 	static void Init() {
 		for (int32_t i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
-		GPacketHandler[PKT_S_S_CHAT] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::S_CHAT>(Handle_S_CHAT, sessionRef, buffer, len); };
+		GPacketHandler[PKT_S_CHAT] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::S_CHAT>(Handle_S_CHAT, sessionRef, buffer, len); };
 	}
 
 	static bool HandlePacket(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int32_t len) {

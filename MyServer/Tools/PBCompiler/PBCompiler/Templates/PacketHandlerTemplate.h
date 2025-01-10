@@ -11,7 +11,7 @@ enum : uint16_t {
 };
 
 bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int32_t len);
-{%- for pkt in parser.S_pkt %}
+{%- for pkt in parser.recv_pkt %}
 bool Handle_{{pkt.name}}(shared_ptr<PBSession> sessionRef, PB::{{pkt.name}}& pkt);
 {%- endfor %}
 
@@ -20,8 +20,8 @@ public:
 	static void Init() {
 		for (int32_t i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
-{%- for pkt in parser.S_pkt %}
-		GPacketHandler[PKT_S_{{pkt.name}}] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::{{pkt.name}}>(Handle_{{pkt.name}}, sessionRef, buffer, len); };
+{%- for pkt in parser.recv_pkt %}
+		GPacketHandler[PKT_{{pkt.name}}] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::{{pkt.name}}>(Handle_{{pkt.name}}, sessionRef, buffer, len); };
 {%- endfor %}
 	}
 
@@ -29,7 +29,7 @@ public:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->_id](sessionRef, buffer, len);
 	}
-{%- for pkt in parser.C_pkt %}
+{%- for pkt in parser.send_pkt %}
 	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::{{pkt.name}}& pkt) { return MakeSendBufferRef(pkt, PKT_{{pkt.name}}); }
 {%- endfor %}
 

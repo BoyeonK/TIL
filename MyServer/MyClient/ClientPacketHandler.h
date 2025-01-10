@@ -1,26 +1,22 @@
 #pragma once
 #include "PB.pb.h"
-#include <functional>
 
 using PacketHandlerFunc = function<bool(shared_ptr<PBSession>, unsigned char*, int32_t)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
-//auto
 enum : uint16_t {
-	PKT_C_CHAT = 1,
-	PKT_S_CHAT = 2,
+	PKT_C_CHAT = 1000,
+	PKT_S_CHAT = 1001,
 };
 
-//auto
 bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int32_t len);
 bool Handle_C_CHAT(shared_ptr<PBSession> sessionRef, PB::C_CHAT& pkt);
 
 class ClientPacketHandler {
 public:
 	static void Init() {
-		for (int32_t i = 0; i < UINT16_MAX; i++) 
+		for (int32_t i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
-		//auto
 		GPacketHandler[PKT_C_CHAT] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::C_CHAT>(Handle_C_CHAT, sessionRef, buffer, len); };
 	}
 
@@ -28,7 +24,6 @@ public:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->_id](sessionRef, buffer, len);
 	}
-	//auto
 	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::S_CHAT& pkt) { return MakeSendBufferRef(pkt, PKT_S_CHAT); }
 
 private:
@@ -55,4 +50,3 @@ private:
 		return sendBufferRef;
 	}
 };
-
