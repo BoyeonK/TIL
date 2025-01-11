@@ -1,5 +1,27 @@
 syntax = "proto3";
 package PB;
+import "Enums.proto";
+import "Structs.proto";
+
+message S_LOGIN {
+    string id = 1;
+    string password = 2;
+}
+
+message C_LOGIN {
+    bool isValid = 1;
+    string token = 2;
+    repeated Character characters = 3;
+}
+
+message S_ENTER_GAME {
+    string token = 1;
+    uint64 charId = 2;
+}
+
+message C_ENTER_GAME {
+    bool isValid = 1;
+}
 
 message C_CHAT {
     string msg = 1;

@@ -1,5 +1,7 @@
 #pragma once
 #include "PB.pb.h"
+#include "Structs.pb.h"
+#include "Enums.pb.h"
 
 using PacketHandlerFunc = function<bool(shared_ptr<PBSession>, unsigned char*, int32_t)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
