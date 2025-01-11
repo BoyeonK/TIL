@@ -28,7 +28,28 @@ bool Handle_C_CONNECTION(shared_ptr<PBSession> sessionRef, PB::C_CONNECTION& pkt
 }
 
 bool Handle_C_LOGIN(shared_ptr<PBSession> sessionRef, PB::C_LOGIN& pkt) {
-	return false;
+	if (pkt.isvalid() == false) {
+		cout << "invaild ID or password" << endl;
+		return true;
+	}
+	if (pkt.characters().size() == 0) {
+		//새 캐릭터 생성 유도
+	}
+
+	//캐릭터 선택
+	static atomic<uint64_t> a = 0;
+	PB::Character selectedCharacter = pkt.characters().Get(a%3);
+	a.fetch_add(1);
+
+	//선택한 캐릭터로 ENTER 요청
+	PB::S_ENTER_GAME S_ENTER_GAME_PKT;
+	S_ENTER_GAME_PKT.set_charid(selectedCharacter.charid());
+	S_ENTER_GAME_PKT.set_token(pkt.token());
+
+	//요청 발사
+	shared_ptr<SendBuffer> enterRequestPKT = ClientPacketHandler::MakeSendBufferRef(S_ENTER_GAME_PKT);
+	sessionRef->Send(enterRequestPKT);
+	return true;
 }
 
 bool Handle_C_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::C_ENTER_GAME& pkt) {

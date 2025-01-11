@@ -10,6 +10,9 @@
     <Filter Include="PBfiles">
       <UniqueIdentifier>{5a6aa85c-5902-4414-9fc1-2d466f8a0c44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RoomPractice">
+      <UniqueIdentifier>{488ee499-ddc8-42f9-bbfd-995e03965b81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -42,6 +45,12 @@
     <ClCompile Include="Enums.pb.cc">
       <Filter>PBfiles</Filter>
     </ClCompile>
+    <ClCompile Include="RoomPlayer.cpp">
+      <Filter>RoomPractice</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>RoomPractice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="Enums.pb.h">
       <Filter>PBfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomPlayer.h">
+      <Filter>RoomPractice</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>RoomPractice</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
