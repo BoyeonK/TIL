@@ -33,6 +33,15 @@
     <ClCompile Include="ClientPacketHandler.cpp">
       <Filter>PBfiles</Filter>
     </ClCompile>
+    <ClCompile Include="Functor1.cpp">
+      <Filter>practiceCodes</Filter>
+    </ClCompile>
+    <ClCompile Include="Structs.pb.cc">
+      <Filter>PBfiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Enums.pb.cc">
+      <Filter>PBfiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -54,6 +63,15 @@
       <Filter>PBfiles</Filter>
     </ClInclude>
     <ClInclude Include="ClientPacketHandler.h">
+      <Filter>PBfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Functor1.h">
+      <Filter>practiceCodes</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.pb.h">
+      <Filter>PBfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.pb.h">
       <Filter>PBfiles</Filter>
     </ClInclude>
   </ItemGroup>

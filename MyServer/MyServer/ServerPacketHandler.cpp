@@ -7,6 +7,14 @@ bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int
 	return false;
 }
 
+bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
+	return false;
+}
+
+bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt) {
+	return false;
+}
+
 bool Handle_S_CHAT(shared_ptr<PBSession> sessionRef, PB::S_CHAT& pkt) {
 	cout << "Chat Message from " << pkt.playerid() << " : " << pkt.msg() << endl;
 	PB::C_CHAT c_chat_pkt;

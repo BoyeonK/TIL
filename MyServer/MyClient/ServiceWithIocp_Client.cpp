@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "ServiceWithIocp_Client.h"
 #include "CoreGlobal.h"
-#include "PB.pb.h"
 #include "ClientPacketHandler.h"
 
 //Client에서 Service를 상속받음
