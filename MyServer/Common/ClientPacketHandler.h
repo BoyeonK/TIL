@@ -7,15 +7,17 @@ using PacketHandlerFunc = function<bool(shared_ptr<PBSession>, unsigned char*, i
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : uint16_t {
-	PKT_S_LOGIN = 1000,
-	PKT_C_LOGIN = 1001,
-	PKT_S_ENTER_GAME = 1002,
-	PKT_C_ENTER_GAME = 1003,
-	PKT_C_CHAT = 1004,
-	PKT_S_CHAT = 1005,
+	PKT_C_CONNECTION = 1000,
+	PKT_S_LOGIN = 1001,
+	PKT_C_LOGIN = 1002,
+	PKT_S_ENTER_GAME = 1003,
+	PKT_C_ENTER_GAME = 1004,
+	PKT_C_CHAT = 1005,
+	PKT_S_CHAT = 1006,
 };
 
 bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int32_t len);
+bool Handle_C_CONNECTION(shared_ptr<PBSession> sessionRef, PB::C_CONNECTION& pkt);
 bool Handle_C_LOGIN(shared_ptr<PBSession> sessionRef, PB::C_LOGIN& pkt);
 bool Handle_C_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::C_ENTER_GAME& pkt);
 bool Handle_C_CHAT(shared_ptr<PBSession> sessionRef, PB::C_CHAT& pkt);
@@ -25,6 +27,7 @@ public:
 	static void Init() {
 		for (int32_t i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
+		GPacketHandler[PKT_C_CONNECTION] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::C_CONNECTION>(Handle_C_CONNECTION, sessionRef, buffer, len); };
 		GPacketHandler[PKT_C_LOGIN] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::C_LOGIN>(Handle_C_LOGIN, sessionRef, buffer, len); };
 		GPacketHandler[PKT_C_ENTER_GAME] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::C_ENTER_GAME>(Handle_C_ENTER_GAME, sessionRef, buffer, len); };
 		GPacketHandler[PKT_C_CHAT] = [](shared_ptr<PBSession>sessionRef, unsigned char* buffer, int32_t len) { return HandlePacket<PB::C_CHAT>(Handle_C_CHAT, sessionRef, buffer, len); };

@@ -7,12 +7,13 @@ using PacketHandlerFunc = function<bool(shared_ptr<PBSession>, unsigned char*, i
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : uint16_t {
-	PKT_S_LOGIN = 1000,
-	PKT_C_LOGIN = 1001,
-	PKT_S_ENTER_GAME = 1002,
-	PKT_C_ENTER_GAME = 1003,
-	PKT_C_CHAT = 1004,
-	PKT_S_CHAT = 1005,
+	PKT_C_CONNECTION = 1000,
+	PKT_S_LOGIN = 1001,
+	PKT_C_LOGIN = 1002,
+	PKT_S_ENTER_GAME = 1003,
+	PKT_C_ENTER_GAME = 1004,
+	PKT_C_CHAT = 1005,
+	PKT_S_CHAT = 1006,
 };
 
 bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int32_t len);
@@ -34,6 +35,7 @@ public:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->_id](sessionRef, buffer, len);
 	}
+	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::C_CONNECTION& pkt) { return MakeSendBufferRef(pkt, PKT_C_CONNECTION); }
 	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::C_LOGIN& pkt) { return MakeSendBufferRef(pkt, PKT_C_LOGIN); }
 	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::C_ENTER_GAME& pkt) { return MakeSendBufferRef(pkt, PKT_C_ENTER_GAME); }
 	static shared_ptr<SendBuffer> MakeSendBufferRef(PB::C_CHAT& pkt) { return MakeSendBufferRef(pkt, PKT_C_CHAT); }

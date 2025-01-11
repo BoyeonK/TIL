@@ -3,6 +3,10 @@ package PB;
 import "Enums.proto";
 import "Structs.proto";
 
+message C_CONNECTION {
+    bool isValid = 1;
+}
+
 message S_LOGIN {
     string id = 1;
     string password = 2;
