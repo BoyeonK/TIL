@@ -6,7 +6,7 @@ class ServerService;
 
 class Listener : public CPObject {
 public:
-	Listener() = default;
+	Listener(uint32_t maxSessionCount) : _maxSessionCount(maxSessionCount) { }
 	~Listener();
 
 	bool StartAccept();
@@ -27,5 +27,6 @@ protected:
 	SOCKET _socketHandle = INVALID_SOCKET;
 	vector<AcceptTask*> _pAcceptTasks;
 	weak_ptr<ServerService> _serverServiceWRef;
+	uint32_t _maxSessionCount;
 };
 

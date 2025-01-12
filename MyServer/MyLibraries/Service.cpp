@@ -39,7 +39,7 @@ ServerService::ServerService(
 ) :
 	Service(ServiceType::Server, CPCoreRef, address, sessionFactory, maxSessionCount)
 {
-	_listenerRef = make_shared<Listener>();
+	_listenerRef = make_shared<Listener>(maxSessionCount);
 }
 
 void ServerService::StartAccept() {
@@ -56,14 +56,20 @@ ClientService::ClientService(
 	SessionFactory sessionFactory, 
 	uint32_t maxSessionCount
 ) :
-	Service(ServiceType::Client, CPCoreRef, address, sessionFactory, maxSessionCount = 1)
+	Service(ServiceType::Client, CPCoreRef, address, sessionFactory, maxSessionCount)
 { }
 
 bool ClientService::StartConnect() {
 	if (CanStart() == false)
 		return false;
-		
-	shared_ptr<Session> sessionRef = CreateSessionRef();
-	return sessionRef->Connect();
+	const uint32_t sessionCount = _maxSessionCount;
+	for (uint32_t i = 0; i < sessionCount; i++) {
+		shared_ptr<Session> sessionRef = CreateSessionRef();
+		if (sessionRef->Connect() == false) {
+			cout << "¾Ó´ë" << endl;
+			return false;
+		}
+	}
+	return true;
 }
 

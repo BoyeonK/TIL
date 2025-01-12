@@ -40,7 +40,7 @@ bool Listener::StartAccept() {
 	if (SocketUtils::Listen(_socketHandle) == false) 
 		return false;
 
-	for (int i = 0; i < 1; i++) {
+	for (int i = 0; i < _maxSessionCount; i++) {
 		AcceptTask* pAcceptTask = new AcceptTask;
 		pAcceptTask->_OwnerRef = shared_from_this();
 		RegisterAccept(pAcceptTask);
