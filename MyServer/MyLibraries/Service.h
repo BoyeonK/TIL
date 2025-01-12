@@ -27,6 +27,7 @@ public:
 	shared_ptr<CPCore> GetCPCoreRef() { return _CPCoreRef; }
 	shared_ptr<Session> CreateSessionRef();
 	void AddSession(shared_ptr<Session>sessionRef);
+	void ReleaseSession(shared_ptr<Session>sessionRef);
 	bool CanStart() { return _sessionFactory != nullptr; }
 
 protected:

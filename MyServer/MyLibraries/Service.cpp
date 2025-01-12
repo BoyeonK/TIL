@@ -31,6 +31,11 @@ void Service::AddSession(shared_ptr<Session> sessionRef) {
 	_sessionRefs.insert(sessionRef);
 }
 
+void Service::ReleaseSession(shared_ptr<Session> sessionRef) {
+	WRITE_RWLOCK;
+	_sessionRefs.erase(sessionRef);
+}
+
 ServerService::ServerService(
 	shared_ptr<CPCore>CPCoreRef,
 	NetAddress address,

@@ -32,6 +32,10 @@ bool Session::Connect() {
 }
 
 void Session::Disconnect() {
+	//이미 연결이 되어 있지 않은 경우
+	if (_connected.exchange(false) == false)
+		return;
+	RegisterDisconnect();
 }
 
 HANDLE Session::GetHandle() {
@@ -88,7 +92,17 @@ bool Session::RegisterConnect() {
 }
 
 bool Session::RegisterDisconnect() {
-	return false;
+	_DCT.Init();
+	_DCT._OwnerRef = shared_from_this();
+
+	if (false == SocketUtils::DisconnectEx(_socketHandle, &_DCT, TF_REUSE_SOCKET, 0)) {
+		int32_t errorCode = ::WSAGetLastError();
+		if (errorCode != WSA_IO_PENDING) {
+			_DCT._OwnerRef = nullptr;
+			return false;
+		}
+	}
+	return true;
 }
 
 void Session::RegisterRecv() {
@@ -157,6 +171,9 @@ void Session::ProcessConnect() {
 }
 
 void Session::ProcessDisconnect() {
+	_DCT._OwnerRef = nullptr;
+	OnDisconnected();
+	GetService()->ReleaseSession(GetSessionRef());
 }
 
 void Session::ProcessRecv(int32_t numOfBytes) {
@@ -164,6 +181,7 @@ void Session::ProcessRecv(int32_t numOfBytes) {
 	if (numOfBytes == 0) {
 		//연결이 끊겼을 때 0byte Recv가 들어온다.
 		cout << "0byte Recv!!" << endl;
+		Disconnect();
 		return;
 	}
 

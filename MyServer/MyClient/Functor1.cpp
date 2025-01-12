@@ -28,6 +28,6 @@ void Functor1() {
 			CS->GetCPCoreRef()->Dispatch();
 		}
 	});
-	this_thread::sleep_for(3s);
+
 	GThreadManager->Join();
 }
