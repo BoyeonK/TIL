@@ -36,7 +36,7 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 
 	//DB가 있다면, 원래 이런 정보들은 DB에 저장되어 있을 것.
 	//임의로 전사, 법사, 궁수를 1캐릭씩 키웠다고 가정하고 코드 작성
-	string Cname;
+	string name1, name2, name3;
 	PB::Character* knight = C_LOGIN_PKT.add_characters();
 	PB::Character* mage = C_LOGIN_PKT.add_characters();
 	PB::Character* archer = C_LOGIN_PKT.add_characters();
@@ -44,12 +44,12 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 	mage->set_charid(PlayerNum + 2);
 	archer->set_charid(PlayerNum + 3);
 
-	Cname = "타락파워전사";
-	knight->set_charname(Cname);
-	Cname = "타락파워법사";
-	mage->set_charname(Cname);
-	Cname = "타락파워궁수";
-	archer->set_charname(Cname);
+	name1 = u8"타락파워전사";
+	knight->set_charname(name1);
+	name2 = u8"타락파워법사";
+	mage->set_charname(name2);
+	name3 = u8"타락파워궁수";
+	archer->set_charname(name3);
 	PlayerNum.fetch_add(4);
 
 	knight->set_charclass(PB::PLAYER_TYPE_KNIGHT);
