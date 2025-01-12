@@ -12,6 +12,7 @@ bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int
 
 bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 	//유효성 검사, 실제 프로젝트라면 별도의 서버에서 진행 될 것이다.
+	cout << "로그인 요청 패킷을 받았다!" << endl;
 	string ID;
 	string password;
 	ID = pkt.id();
@@ -57,10 +58,12 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 
 	shared_ptr<SendBuffer>loginResponsePKT = ServerPacketHandler::MakeSendBufferRef(C_LOGIN_PKT);
 	sessionRef->Send(loginResponsePKT);
+	cout << "로그인된 계정의 사용가능한 캐릭터들 정보를 보냈다!" << endl;
 	return true;
 }
 
 bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt) {
+	cout << "입장 요청을 받았다!" << endl;
 	string token = pkt.token();
 	uint64_t requestID = pkt.charid();
 
@@ -70,6 +73,7 @@ bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt
 
 	shared_ptr<SendBuffer> enterResponsePKT = ServerPacketHandler::MakeSendBufferRef(C_ENTER_GAME_PKT);
 	sessionRef->Send(enterResponsePKT);
+	cout << "입장 완료 응답을 보냈다 (아직 입장 완료 코드 작성 X)" << endl;
 	return true;
 }
 

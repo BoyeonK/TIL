@@ -8,6 +8,7 @@ bool Handle_INVALID(shared_ptr<PBSession> sessionRef, unsigned char* buffer, int
 }
 
 bool Handle_C_CONNECTION(shared_ptr<PBSession> sessionRef, PB::C_CONNECTION& pkt) {
+	cout << "Connected 완료 응답을 받았다!" << endl;
 	if (pkt.isvalid()) {
 		//지금은 하드코딩해서 넣어줬지만 input으로 바꿔 줄 수도 있을 것 같다.
 		//Unicode로 인코딩하기 귀찮으니 지금은 그냥 string을 사용해준다.
@@ -18,6 +19,7 @@ bool Handle_C_CONNECTION(shared_ptr<PBSession> sessionRef, PB::C_CONNECTION& pkt
 		S_LOGIN_PKT.set_password(myPassword);
 		shared_ptr<SendBuffer>loginRequestPKT = ClientPacketHandler::MakeSendBufferRef(S_LOGIN_PKT);
 		sessionRef->Send(loginRequestPKT);
+		cout << "tetepiti149의 로그인 요청 보냄" << endl;
 		return true;
 	}
 	else {
@@ -49,6 +51,7 @@ bool Handle_C_LOGIN(shared_ptr<PBSession> sessionRef, PB::C_LOGIN& pkt) {
 	//요청 발사
 	shared_ptr<SendBuffer> enterRequestPKT = ClientPacketHandler::MakeSendBufferRef(S_ENTER_GAME_PKT);
 	sessionRef->Send(enterRequestPKT);
+	cout << "Room에 입장 요청을 보냈다!" << endl;
 	return true;
 }
 
