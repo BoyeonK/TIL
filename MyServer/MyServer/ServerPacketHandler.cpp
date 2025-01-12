@@ -31,9 +31,10 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 	C_LOGIN_PKT.set_isvalid(true);
 	C_LOGIN_PKT.set_token(token);
 
-	static atomic<uint64_t> PlayerNum = 1;
+	static atomic<uint64_t> PlayerNum = 0;
 
 	//DB가 있다면, 원래 이런 정보들은 DB에 저장되어 있을 것.
+	//임의로 전사, 법사, 궁수를 1캐릭씩 키웠다고 가정하고 코드 작성
 	string Cname;
 	PB::Character* knight = C_LOGIN_PKT.add_characters();
 	PB::Character* mage = C_LOGIN_PKT.add_characters();

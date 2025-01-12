@@ -25,6 +25,7 @@ message S_ENTER_GAME {
 
 message C_ENTER_GAME {
     bool isValid = 1;
+    uint64 charId = 2;
 }
 
 message C_CHAT {
