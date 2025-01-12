@@ -38,9 +38,9 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 	PB::Character* knight = C_LOGIN_PKT.add_characters();
 	PB::Character* mage = C_LOGIN_PKT.add_characters();
 	PB::Character* archer = C_LOGIN_PKT.add_characters();
-	knight->set_charid(PlayerNum);
-	mage->set_charid(PlayerNum + 1);
-	archer->set_charid(PlayerNum + 2);
+	knight->set_charid(PlayerNum + 1);
+	mage->set_charid(PlayerNum + 2);
+	archer->set_charid(PlayerNum + 3);
 
 	Cname = "타락파워전사";
 	knight->set_charname(Cname);
@@ -48,7 +48,7 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 	mage->set_charname(Cname);
 	Cname = "타락파워궁수";
 	archer->set_charname(Cname);
-	PlayerNum.fetch_add(3);
+	PlayerNum.fetch_add(4);
 
 	knight->set_charclass(PB::PLAYER_TYPE_KNIGHT);
 	mage->set_charclass(PB::PLAYER_TYPE_MAGE);
@@ -60,7 +60,16 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 }
 
 bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt) {
-	return false;
+	string token = pkt.token();
+	uint64_t requestID = pkt.charid();
+
+	PB::C_ENTER_GAME C_ENTER_GAME_PKT;
+	C_ENTER_GAME_PKT.set_charid(requestID);
+	C_ENTER_GAME_PKT.set_isvalid(true);
+
+	shared_ptr<SendBuffer> enterResponsePKT = ServerPacketHandler::MakeSendBufferRef(C_ENTER_GAME_PKT);
+	sessionRef->Send(enterResponsePKT);
+	return true;
 }
 
 bool Handle_S_CHAT(shared_ptr<PBSession> sessionRef, PB::S_CHAT& pkt) {
