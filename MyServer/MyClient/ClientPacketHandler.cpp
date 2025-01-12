@@ -41,7 +41,7 @@ bool Handle_C_LOGIN(shared_ptr<PBSession> sessionRef, PB::C_LOGIN& pkt) {
 	//캐릭터 선택
 	static atomic<uint64_t> a = 0;
 	PB::Character selectedCharacter = pkt.characters().Get(a%3);
-	a.fetch_add(1);
+	//a.fetch_add(1);
 
 	//선택한 캐릭터로 ENTER 요청
 	PB::S_ENTER_GAME S_ENTER_GAME_PKT;

@@ -16,7 +16,7 @@ void Functor1() {
 		make_shared<CPCore>(),
 		NetAddress(L"127.0.0.1", 7777),
 		MakeSession,
-		2
+		5
 	);
 
 	this_thread::sleep_for(3s);
