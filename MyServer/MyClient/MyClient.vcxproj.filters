@@ -10,6 +10,9 @@
     <Filter Include="practiceCodes">
       <UniqueIdentifier>{2295cda1-54c7-4ec7-82d9-e2fbaff7cfe5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RoomPractice">
+      <UniqueIdentifier>{2546decf-4b9b-461e-bfc1-db2aecccb943}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="Enums.pb.cc">
       <Filter>PBfiles</Filter>
     </ClCompile>
+    <ClCompile Include="RoomClientSession.cpp">
+      <Filter>RoomPractice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -73,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="Enums.pb.h">
       <Filter>PBfiles</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomClientSession.h">
+      <Filter>RoomPractice</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

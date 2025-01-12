@@ -1,6 +1,5 @@
 #pragma once
-class RoomServerSession : public PBSession {
-	void OnConnected();
+class RoomClientSession : public PBSession {
 	void OnRecvPacket(unsigned char* buffer, int32_t len) override;
 };
 

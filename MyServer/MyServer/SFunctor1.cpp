@@ -44,4 +44,14 @@ void SFunctor1() {
 		100,
 		make_shared<Room>()
 	);
+
+	RS->StartAccept();
+
+	GThreadManager->Launch([=]() {
+		while (true) {
+			RS->GetCPCoreRef()->Dispatch();
+		}
+	});
+
+	GThreadManager->Join();
 }

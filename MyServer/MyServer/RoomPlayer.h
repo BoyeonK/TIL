@@ -1,4 +1,5 @@
 #pragma once
+#include "PB.pb.h"
 
 class RoomPlayer {
 public:
