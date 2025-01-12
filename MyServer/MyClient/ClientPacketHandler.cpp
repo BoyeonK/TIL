@@ -56,7 +56,14 @@ bool Handle_C_LOGIN(shared_ptr<PBSession> sessionRef, PB::C_LOGIN& pkt) {
 }
 
 bool Handle_C_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::C_ENTER_GAME& pkt) {
-	return false;
+	if (pkt.isvalid() == true) {
+		cout << "입장 요청이 성공했다는 응답을 받음" << endl;
+		cout << "Player의 ID는 " << pkt.charid() << "번입니다." << endl;
+	}
+	else {
+		cout << "입장 요청이 실패했다는 응답을 받음" << endl;
+	}
+	return true;
 }
 
 bool Handle_C_CHAT(shared_ptr<PBSession> sessionRef, PB::C_CHAT& pkt) {

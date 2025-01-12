@@ -6,7 +6,7 @@ class Room {
 public:
 	void Enter(shared_ptr<RoomPlayer> playerRef);
 	void Leave(shared_ptr<RoomPlayer> playerRef);
-	void BroadCast(shared_ptr<SendBuffer> SendBufferRef);
+	void BroadCast(shared_ptr<SendBuffer> sendBufferRef);
 
 private:
 	USE_RWLOCK;
