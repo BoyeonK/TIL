@@ -6,7 +6,8 @@ void RoomServerSession::OnConnected() {
 	//TODO: C_CONNECTION 패킷 전송하기
 	PB::C_CONNECTION responseConnectPKT;
 	responseConnectPKT.set_isvalid(true);
-	ServerPacketHandler::MakeSendBufferRef(responseConnectPKT);
+	shared_ptr<SendBuffer>sendBuff = ServerPacketHandler::MakeSendBufferRef(responseConnectPKT);
+	Send(sendBuff);
 	cout << "client 연결! 로그인을 유도하도록 패킷을 전송" << endl;
 }
 

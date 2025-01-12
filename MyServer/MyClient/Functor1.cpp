@@ -19,9 +19,9 @@ void Functor1() {
 		2
 	);
 
-	CS->StartConnect();
-
 	this_thread::sleep_for(3s);
+
+	CS->StartConnect();
 
 	GThreadManager->Launch([=]() {
 		while (true) {
