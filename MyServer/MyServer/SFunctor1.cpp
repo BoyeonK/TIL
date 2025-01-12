@@ -5,30 +5,8 @@
 #include "ServerPacketHandler.h"
 #include "Room.h"
 #include "RoomServerSession.h"
+#include "RoomServerService.h"
 //server
-
-class RoomServerService : public ServerService {
-public:
-	RoomServerService(
-		shared_ptr<CPCore>CPCoreRef, 
-		NetAddress address,
-		SessionFactory sessionFactory,
-		uint32_t maxSessionCount,
-		shared_ptr<Room> roomRef
-	)
-:
-	ServerService(
-		CPCoreRef,
-		address,
-		sessionFactory,
-		maxSessionCount
-	),
-	_room(roomRef)
-	{}
-
-private:
-	shared_ptr<Room> _room;
-};
 
 shared_ptr<RoomServerSession> makeRS() {
 	return make_shared<RoomServerSession>();

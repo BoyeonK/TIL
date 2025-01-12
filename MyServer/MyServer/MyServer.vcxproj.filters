@@ -54,6 +54,9 @@
     <ClCompile Include="RoomServerSession.cpp">
       <Filter>RoomPractice</Filter>
     </ClCompile>
+    <ClCompile Include="RoomServerService.cpp">
+      <Filter>RoomPractice</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -93,6 +96,9 @@
       <Filter>RoomPractice</Filter>
     </ClInclude>
     <ClInclude Include="RoomServerSession.h">
+      <Filter>RoomPractice</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomServerService.h">
       <Filter>RoomPractice</Filter>
     </ClInclude>
   </ItemGroup>

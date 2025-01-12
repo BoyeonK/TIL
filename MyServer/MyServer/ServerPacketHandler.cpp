@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "ServerPacketHandler.h"
+#include "RoomServerService.h"
+#include "Room.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
@@ -68,12 +70,30 @@ bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt
 	uint64_t requestID = pkt.charid();
 
 	PB::C_ENTER_GAME C_ENTER_GAME_PKT;
-	C_ENTER_GAME_PKT.set_charid(requestID);
-	C_ENTER_GAME_PKT.set_isvalid(true);
+
+	shared_ptr<Service> serviceRef = sessionRef->GetService();
+	shared_ptr<RoomServerService> roomServiceRef = dynamic_pointer_cast<RoomServerService>(serviceRef);
+	if (roomServiceRef == nullptr) {
+		//해당 service가 Room을 지원하지 않는 경우 입장 요청 거절
+		C_ENTER_GAME_PKT.set_isvalid(false);
+		cout << "입장 요청 거절!" << endl;
+	}
+	else {
+		shared_ptr<RoomPlayer> playerRef = make_shared<RoomPlayer>();
+		playerRef->_playerId = requestID;
+		//원래라면, ID에 해당하는 정보들을 DB에서 가져오는것이 맞는 그림일것 같다.
+		playerRef->_name = "낙인player좌";
+		playerRef->_type = PB::PLAYER_TYPE_KNIGHT;
+		playerRef->_playerSession = sessionRef;
+		roomServiceRef->_roomRef->Enter(playerRef);
+		C_ENTER_GAME_PKT.set_charid(requestID);
+		C_ENTER_GAME_PKT.set_isvalid(true);	
+		cout << "입장 요청 성공" << endl;
+	}
 
 	shared_ptr<SendBuffer> enterResponsePKT = ServerPacketHandler::MakeSendBufferRef(C_ENTER_GAME_PKT);
 	sessionRef->Send(enterResponsePKT);
-	cout << "입장 완료 응답을 보냈다 (아직 입장 완료 코드 작성 X)" << endl;
+	cout << "입장요청에 대한 응답을 보냈다." << endl;
 	return true;
 }
 
