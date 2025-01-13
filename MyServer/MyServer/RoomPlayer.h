@@ -4,7 +4,12 @@
 class RoomPlayer {
 public:
 	shared_ptr<PBSession> GetSession() { return _playerSession.lock(); }
-	void SetSession(shared_ptr<PBSession> sessionRef) { _playerSession = sessionRef; }
+	void SetSession(shared_ptr<PBSession> sessionRef) { 
+		_playerSession = sessionRef; 
+		if (_playerSession.lock() == nullptr) {
+			cout << "뭔가 잘못됬스우" << endl;
+		}
+	}
 
 	uint64_t _playerId = 0;
 	string _name;

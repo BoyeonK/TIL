@@ -172,9 +172,9 @@ void Session::ProcessConnect() {
 }
 
 void Session::ProcessDisconnect() {
-	_DCT._OwnerRef = nullptr;
 	OnDisconnected();
 	GetService()->ReleaseSession(GetSessionRef());
+	_DCT._OwnerRef = nullptr;
 }
 
 void Session::ProcessRecv(int32_t numOfBytes) {

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "ServerPacketHandler.h"
 #include "RoomServerService.h"
+#include "RoomServerSession.h"
 #include "Room.h"
 
 PacketHandlerFunc GPacketHandler[UINT16_MAX];
@@ -85,7 +86,10 @@ bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt
 		playerRef->_name = "player";
 		playerRef->_type = PB::PLAYER_TYPE_KNIGHT;
 		playerRef->SetSession(sessionRef);
-		
+		//dynamic cast를 하는게 안전하지만, 여기까지 진행되었따면 RoomSession인게 확실하니까
+		shared_ptr<RoomServerSession>s = static_pointer_cast<RoomServerSession>(sessionRef);
+		s->_player = playerRef;
+
 		roomServiceRef->_roomRef->Enter(playerRef);
 		C_ENTER_GAME_PKT.set_charid(requestID);
 		C_ENTER_GAME_PKT.set_isvalid(true);	
