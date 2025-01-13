@@ -14,5 +14,5 @@ void Room::Leave(shared_ptr<RoomPlayer> playerRef) {
 void Room::BroadCast(shared_ptr<SendBuffer> sendBufferRef) {
 	WRITE_RWLOCK;
 	for (auto& p : _players) 
-		p.second->_playerSession->Send(sendBufferRef);
+		p.second->GetSession()->Send(sendBufferRef);
 }

@@ -82,9 +82,10 @@ bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt
 		shared_ptr<RoomPlayer> playerRef = make_shared<RoomPlayer>();
 		playerRef->_playerId = requestID;
 		//원래라면, ID에 해당하는 정보들을 DB에서 가져오는것이 맞는 그림일것 같다.
-		playerRef->_name = "낙인player좌";
+		playerRef->_name = "player";
 		playerRef->_type = PB::PLAYER_TYPE_KNIGHT;
-		playerRef->_playerSession = sessionRef;
+		playerRef->SetSession(sessionRef);
+		
 		roomServiceRef->_roomRef->Enter(playerRef);
 		C_ENTER_GAME_PKT.set_charid(requestID);
 		C_ENTER_GAME_PKT.set_isvalid(true);	

@@ -4,7 +4,6 @@
 #include "RoomServerService.h"
 
 void RoomServerSession::OnConnected() {
-	//TODO: C_CONNECTION 패킷 전송하기
 	PB::C_CONNECTION responseConnectPKT;
 	responseConnectPKT.set_isvalid(true);
 	shared_ptr<SendBuffer>sendBuff = ServerPacketHandler::MakeSendBufferRef(responseConnectPKT);
