@@ -14,8 +14,7 @@ void RoomServerSession::OnConnected() {
 void RoomServerSession::OnDisconnected() {
 	shared_ptr<Service>serviceRef = GetService();
 	shared_ptr<RoomServerService>roomServerServiceRef = dynamic_pointer_cast<RoomServerService>(serviceRef);
-	//roomServerServiceRef->_roomRef->Leave()
-	//Leave처리하기
+	roomServerServiceRef->_roomRef->Leave(_player);
 }
 
 void RoomServerSession::OnRecvPacket(unsigned char* buffer, int32_t len) {

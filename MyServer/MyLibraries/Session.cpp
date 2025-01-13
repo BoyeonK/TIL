@@ -48,6 +48,7 @@ void Session::Dispatch(CPTask* pCPTask, int32_t numOfBytes) {
 		ProcessConnect();
 		break;
 	case (TaskType::Disconnect):
+		ProcessDisconnect();
 		break;
 	case (TaskType::Recv):
 		ProcessRecv(numOfBytes);
