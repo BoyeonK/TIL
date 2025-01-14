@@ -21,5 +21,6 @@
 #include "NetAddress.h"
 #include "SocketUtils.h"
 #include "CoreGlobal.h"
+#include "JobQueue.h"
 
 using namespace std;

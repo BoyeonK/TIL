@@ -1,15 +1,23 @@
 #include "pch.h"
-#include "JobQueue.h"
+#include "GlobalQueue.h"
 
 void JobQueue::Push(shared_ptr<Job>&& job) {
 	const int32_t prevCount = _jobCount.fetch_add(1);
 	_jobs.Push(job);
 	if (prevCount == 0) {
-		Execute();
+		if (LCurrentJobQueue == nullptr) {
+			Execute();
+		}
+		else {
+			//이 작업을 실행하는 Thread는 이미 어떤 JobQueue를 처리하고있다.
+			GlobalJobQueue->Push(shared_from_this());
+		}
 	}
 }
 
 void JobQueue::Execute() {
+	//이 JobQueue를 실행하는 thread는 다른 JobQueue의 작업을 실행하지 않겠다는 결의?
+	LCurrentJobQueue = this;
 	while (true) {
 		vector<shared_ptr<Job>> jobs;
 		_jobs.PopAll(jobs);
@@ -18,6 +26,8 @@ void JobQueue::Execute() {
 			jobs[i]->Execute();
 		}
 		if (_jobCount.fetch_sub(jobCount) == jobCount) {
+			//해당 JobQueue의 모든 작업을 끝마침
+			LCurrentJobQueue = nullptr;
 			return;
 		}
 	}

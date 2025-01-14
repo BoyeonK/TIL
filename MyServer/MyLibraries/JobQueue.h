@@ -15,10 +15,10 @@ public:
 	}
 
 	//virtual void FlushJob() abstract;
+	void Execute();
 
 private:
 	void Push(shared_ptr<Job>&& job);
-	void Execute();
 
 protected:
 	LockQueue<shared_ptr<Job>> _jobs;

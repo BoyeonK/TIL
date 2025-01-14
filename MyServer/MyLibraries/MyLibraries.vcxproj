@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="CompletionPortCore.h" />
     <ClInclude Include="CoreGlobal.h" />
+    <ClInclude Include="GlobalQueue.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="LockQueue.h" />
     <ClInclude Include="JobQueue.h" />
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="CompletionPortCore.cpp" />
     <ClCompile Include="CoreGlobal.cpp" />
+    <ClCompile Include="GlobalQueue.cpp" />
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="LockQueue.cpp" />
     <ClCompile Include="JobQueue.cpp" />

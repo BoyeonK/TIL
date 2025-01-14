@@ -25,11 +25,18 @@ void SFunctor1() {
 
 	RS->StartAccept();
 
-	GThreadManager->Launch([=]() {
-		while (true) {
-			RS->GetCPCoreRef()->Dispatch();
-		}
-	});
+	for (int i = 0; i < 2; i++) {
+		GThreadManager->Launch([=]() {
+			while (true) {
+				RS->GetCPCoreRef()->Dispatch();
+			}
+		});
+	}
+	for (int i = 0; i < 2; i++) {
+		GThreadManager->Launch([=]() {
+			ThreadManager::DoGlobalQueueWork();
+		});
+	}
 
 	GThreadManager->Join();
 }
