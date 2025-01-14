@@ -9,6 +9,7 @@ ThreadManager* GThreadManager = nullptr;
 SendBufferManager* GSendBufferManager = nullptr;
 GlobalQueue* GlobalJobQueue = nullptr;
 thread_local uint32_t MyThreadID = 0;
+thread_local uint64_t LEndTickCount = 0;
 thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef = nullptr;
 thread_local JobQueue* LCurrentJobQueue = nullptr;
 
@@ -63,7 +64,9 @@ void ThreadManager::Join() {
 
 void ThreadManager::DoGlobalQueueWork() {
 	while (LCurrentJobQueue == nullptr) {
-		//uint64_t now = ::GetTickCount64();
+		uint64_t now = ::GetTickCount64();
+		if (now > LEndTickCount)
+			break;
 		shared_ptr<JobQueue> jobQueue = GlobalJobQueue->Pop();
 		if (jobQueue == nullptr)
 			break;

@@ -25,16 +25,13 @@ void SFunctor1() {
 
 	RS->StartAccept();
 
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 4; i++) {
 		GThreadManager->Launch([=]() {
 			while (true) {
-				RS->GetCPCoreRef()->Dispatch();
+				LEndTickCount = ::GetTickCount64() + 64;
+				ThreadManager::DoGlobalQueueWork();
+				RS->GetCPCoreRef()->Dispatch(10);
 			}
-		});
-	}
-	for (int i = 0; i < 2; i++) {
-		GThreadManager->Launch([=]() {
-			ThreadManager::DoGlobalQueueWork();
 		});
 	}
 

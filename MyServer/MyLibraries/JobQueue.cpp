@@ -30,5 +30,11 @@ void JobQueue::Execute() {
 			LCurrentJobQueue = nullptr;
 			return;
 		}
+		const uint64_t now = ::GetTickCount64();
+		if (now >= LEndTickCount) {
+			LCurrentJobQueue == nullptr;
+			GlobalJobQueue->Push(shared_from_this());
+			break;
+		}
 	}
 }
