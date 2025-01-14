@@ -2,11 +2,13 @@
 
 2025 1 3th
 
+- lambda capture
+
 - 문자열 인코딩 CP949, UTF-16, UTF-8
 
-2025 1 2th
-
 - COMMAND 패턴 (JobQueue)
+
+2025 1 2th
 
 - Jinja2를 이용한 코드 작성 자동화
 

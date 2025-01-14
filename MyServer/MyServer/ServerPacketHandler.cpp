@@ -53,7 +53,7 @@ bool Handle_S_LOGIN(shared_ptr<PBSession> sessionRef, PB::S_LOGIN& pkt) {
 	mage->set_charname(name2);
 	name3 = u8"타락파워궁수";
 	archer->set_charname(name3);
-	PlayerNum.fetch_add(4);
+	PlayerNum.fetch_add(3);
 
 	knight->set_charclass(PB::PLAYER_TYPE_KNIGHT);
 	mage->set_charclass(PB::PLAYER_TYPE_MAGE);
