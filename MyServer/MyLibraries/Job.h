@@ -12,7 +12,9 @@ public:
 		_callback = [owner, memFunc, args...]() { (owner.get()->*memFunc)(args...); };
 	}
 
-	void Execute(){}
+	void Execute() {
+		_callback();
+	}
 
 private:
 	CallbackType _callback;

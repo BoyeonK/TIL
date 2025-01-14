@@ -14,7 +14,7 @@ public:
 		Push({ objectPool<Job>::alloc(ownerRef, memFunc, std::forward<Args>(args)...), objectPool<Job>::dealloc });
 	}
 
-	virtual void FlushJob() abstract;
+	//virtual void FlushJob() abstract;
 
 private:
 	void Push(shared_ptr<Job>&& job);

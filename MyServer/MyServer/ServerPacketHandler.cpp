@@ -90,7 +90,8 @@ bool Handle_S_ENTER_GAME(shared_ptr<PBSession> sessionRef, PB::S_ENTER_GAME& pkt
 		shared_ptr<RoomServerSession>s = static_pointer_cast<RoomServerSession>(sessionRef);
 		s->_player = playerRef;
 
-		roomServiceRef->_roomRef->Enter(playerRef);
+		roomServiceRef->_roomRef->DoAsync(&Room::Enter, playerRef);
+		//roomServiceRef->_roomRef->Enter(playerRef);
 		C_ENTER_GAME_PKT.set_charid(requestID);
 		C_ENTER_GAME_PKT.set_isvalid(true);	
 		cout << "입장 요청 성공" << endl;
