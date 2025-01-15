@@ -22,9 +22,11 @@ void Functor1() {
 	);
 
 	shared_ptr<voidStruct> a = make_shared<voidStruct>();
-	a->DoTimerAsync([] {cout << "이거 아무 void타입 함수나 넣을수 있어서" << endl; }, 500);
-	a->DoTimerAsync([] {cout << "상당히 좆될 수 있는 부분인거 같은데?" << endl; }, 2000);
-	a->DoTimerAsync([] {cout << "코드인젝션 당하면" << endl; }, 1250);
+	a->DoTimerAsync([] {cout << "외부 입력 검증 : 모든 입력값을 화이트리스트 방식으로 검증." << endl; }, 500);
+	a->DoTimerAsync([] {cout << "안전한 함수 사용 : system, strcpy 대신 안전한 대체 함수 사용." << endl; }, 2000);
+	a->DoTimerAsync([] {cout << "메모리 관리 : 포인터와 버퍼 사용 시 크기 제한과 경계 체크." << endl; }, 1250);
+	a->DoTimerAsync([] {cout << "컴파일러 보호 옵션 사용 : 스택 보호와 ASLR 활성화." << endl; }, 3550);
+	a->DoTimerAsync([] {cout << "정적 분석 도구 활용 : 취약점 탐지 및 코드 검토." << endl; }, 2750);
 
 	GThreadManager->Launch([]() {
 		while (true) {
