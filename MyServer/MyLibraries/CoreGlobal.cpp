@@ -4,10 +4,12 @@
 #include "SendBuffer.h"
 #include "JobQueue.h"
 #include "GlobalQueue.h"
+#include "JobTimer.h"
 
 ThreadManager* GThreadManager = nullptr;
 SendBufferManager* GSendBufferManager = nullptr;
 GlobalQueue* GlobalJobQueue = nullptr;
+JobTimer* GJobTimer;
 thread_local uint32_t MyThreadID = 0;
 thread_local uint64_t LEndTickCount = 0;
 thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef = nullptr;
@@ -19,12 +21,15 @@ public:
 		GThreadManager = new ThreadManager();
 		GSendBufferManager = new SendBufferManager();
 		GlobalJobQueue = new GlobalQueue();
+		GJobTimer = new JobTimer();
 		SocketUtils::Init();
 	}
 
 	~CoreGlobal() {
 		delete GThreadManager;
 		delete GSendBufferManager;
+		delete GlobalJobQueue;
+		delete GJobTimer;
 		SocketUtils::Clear();
 	}
 } GCoreGlobal;
@@ -72,4 +77,9 @@ void ThreadManager::DoGlobalQueueWork() {
 			break;
 		jobQueue->Execute();
 	}
+}
+
+void ThreadManager::DoTimerQueueDistribution() {
+	const uint64_t now = ::GetTickCount64();
+	GJobTimer->Distrubute(now);
 }

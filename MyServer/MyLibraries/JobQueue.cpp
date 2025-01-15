@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "GlobalQueue.h"
 
-void JobQueue::Push(shared_ptr<Job>&& job) {
+void JobQueue::Push(shared_ptr<Job> job, bool isPushOnly) {
 	const int32_t prevCount = _jobCount.fetch_add(1);
 	_jobs.Push(job);
 	if (prevCount == 0) {
-		if (LCurrentJobQueue == nullptr) {
+		if (LCurrentJobQueue == nullptr && isPushOnly) {
 			Execute();
 		}
 		else {
 			//이 작업을 실행하는 Thread는 이미 어떤 JobQueue를 처리하고있다.
+			//혹은 의도적으로 실행하지않고 GlobalQueue에 Push하는것을 목표로 했다.
 			GlobalJobQueue->Push(shared_from_this());
 		}
 	}

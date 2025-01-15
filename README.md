@@ -2,6 +2,8 @@
 
 2025 1 3th
 
+- 상수(읽기 전용) 참조 및 return값을 상수로서 하는 이유
+
 - lambda capture
 
 - 문자열 인코딩 CP949, UTF-16, UTF-8
