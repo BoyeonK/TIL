@@ -5,11 +5,13 @@
 #include "JobQueue.h"
 #include "GlobalQueue.h"
 #include "JobTimer.h"
+#include "DBConnectionPool.h"
 
 ThreadManager* GThreadManager = nullptr;
 SendBufferManager* GSendBufferManager = nullptr;
 GlobalQueue* GlobalJobQueue = nullptr;
-JobTimer* GJobTimer;
+JobTimer* GJobTimer = nullptr;
+DBConnectionPool* GDBConnectionPool = nullptr;
 thread_local uint32_t MyThreadID = 0;
 thread_local uint64_t LEndTickCount = 0;
 thread_local shared_ptr<SendBufferChunk> LSendBufferChunkRef = nullptr;
@@ -22,6 +24,7 @@ public:
 		GSendBufferManager = new SendBufferManager();
 		GlobalJobQueue = new GlobalQueue();
 		GJobTimer = new JobTimer();
+		GDBConnectionPool = new DBConnectionPool();
 		SocketUtils::Init();
 	}
 
@@ -30,6 +33,7 @@ public:
 		delete GSendBufferManager;
 		delete GlobalJobQueue;
 		delete GJobTimer;
+		delete GDBConnectionPool;
 		SocketUtils::Clear();
 	}
 } GCoreGlobal;
