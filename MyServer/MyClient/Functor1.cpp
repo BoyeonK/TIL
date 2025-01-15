@@ -22,11 +22,11 @@ void Functor1() {
 	);
 
 	shared_ptr<voidStruct> a = make_shared<voidStruct>();
-	a->DoTimerAsync([] {cout << "외부 입력 검증 : 모든 입력값을 화이트리스트 방식으로 검증." << endl; }, 500);
-	a->DoTimerAsync([] {cout << "안전한 함수 사용 : system, strcpy 대신 안전한 대체 함수 사용." << endl; }, 2000);
-	a->DoTimerAsync([] {cout << "메모리 관리 : 포인터와 버퍼 사용 시 크기 제한과 경계 체크." << endl; }, 1250);
-	a->DoTimerAsync([] {cout << "컴파일러 보호 옵션 사용 : 스택 보호와 ASLR 활성화." << endl; }, 3550);
-	a->DoTimerAsync([] {cout << "정적 분석 도구 활용 : 취약점 탐지 및 코드 검토." << endl; }, 2750);
+	a->DoTimerAsync([] {cout << "500" << endl; }, 500);
+	a->DoTimerAsync([] {cout << "2000" << endl; }, 2000);
+	a->DoTimerAsync([] {cout << "1250" << endl; }, 1250);
+	a->DoTimerAsync([] {cout << "3500" << endl; }, 3500);
+	a->DoTimerAsync([] {cout << "2750" << endl; }, 2750);
 
 	GThreadManager->Launch([]() {
 		while (true) {
